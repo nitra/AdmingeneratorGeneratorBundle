@@ -1,4 +1,9 @@
-# Boolean filter
+# Date filter
+date:
+    from:       from
+    to:         to
+
+    # Boolean filter
 boolean:
     yes:        Yes
     no:         No

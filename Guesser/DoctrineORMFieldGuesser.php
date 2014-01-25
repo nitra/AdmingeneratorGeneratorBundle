@@ -210,6 +210,10 @@ class DoctrineORMFieldGuesser extends ContainerAware
         if ('date' == $dbType) {
             $options['format'] = 'd MMM y';
             $options['widget'] = 'single_text';
+            $options['from']['label'] = $this->container->get('translator')
+                        ->trans('date.from', array(), 'Admingenerator');
+            $options['to']['label'] = $this->container->get('translator')
+                        ->trans('date.to', array(), 'Admingenerator');
         }
 
         if ('datetime' == $dbType) {

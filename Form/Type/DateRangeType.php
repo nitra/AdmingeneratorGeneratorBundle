@@ -18,8 +18,6 @@ class DateRangeType extends AbstractType
 
         $options['from']['required'] = $options['required'];
         $options['to']['required'] = $options['required'];
-        $options['from']['label'] = 'с';
-        $options['to']['label'] = 'по';
 
         if ($options['format']) {
             $options['from']['format'] = $options['format'];
