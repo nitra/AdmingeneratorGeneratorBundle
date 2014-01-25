@@ -5,9 +5,9 @@
         <title>{% block title %}AdmingeneratorGeneratorBundle{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets              
-                '@AdmingeneratorGeneratorBundle/Resources/public/css/ui-lightness/jquery-ui-1.10.3.custom.css'
-                '@AdmingeneratorGeneratorBundle/Resources/public/css/colorbox.css'
-                '@AdmingeneratorGeneratorBundle/Resources/public/css/admin.less' %}
+                'bundles/admingeneratorgenerator/css/ui-lightness/jquery-ui-1.10.3.custom.css'
+                'bundles/admingeneratorgenerator/css/colorbox.css'
+                'bundles/admingeneratorgenerator/css/admin.less' %}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
@@ -46,13 +46,14 @@
                 {% endblock %}
 
                 {% block profile %}
-                <div class="profile">
-                    <a href="#">{{ app.user }}</a>
-                    {% set logout_path = (admingenerator_config('logout_path') is not null) ? path(admingenerator_config('logout_path')) : '#' %}
-                    <a class='logout' href="{{ logout_path }}">{{ 'profile.logout'|trans({}, 'Admingenerator') }}</a>
-                </div>
+                    {% if app.user %}
+                        <div class="profile">
+                            <a href="#">{{ app.user }}</a>
+                            {% set logout_path = (admingenerator_config('logout_path') is not null) ? path(admingenerator_config('logout_path')) : '#' %}
+                            <a class='logout' href="{{ logout_path }}">{{ 'profile.logout'|trans({}, 'Admingenerator') }}</a>
+                        </div>
+                    {% endif %}
                 {% endblock %}
-
                 {% block menu %}
                 <div class="main_menu">
                      {{ millwright_menu_render('main') }}

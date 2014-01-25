@@ -34,7 +34,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('dashboard_welcome_path')->defaultNull()->end()
                 ->scalarNode('login_path')->defaultNull()->end()
-                ->scalarNode('logout_path')->defaultValue('fos_user_security_logout')->end()
+                ->scalarNode('logout_path')->defaultNull()->end()
                 ->scalarNode('exit_path')->defaultNull()->end()
                 ->arrayNode('twig')
                     ->addDefaultsIfNotSet()
