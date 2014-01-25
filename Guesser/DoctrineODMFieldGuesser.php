@@ -119,8 +119,10 @@ class DoctrineODMFieldGuesser extends ContainerAware
     public function getFormType($dbType, $columnName)
     {
         $formTypes = $this->container->getParameter('admingenerator.doctrineodm_form_types');
-
-        if (array_key_exists($dbType, $formTypes)) {
+        
+        if ('date' === $dbType) {
+            return 'date';
+        } elseif (array_key_exists($dbType, $formTypes)) {
             return $formTypes[$dbType];
         } elseif ('virtual' === $dbType) {
             throw new NotImplementedException(
@@ -143,6 +145,10 @@ class DoctrineODMFieldGuesser extends ContainerAware
             return $filterTypes[$dbType];
         }
 
+        if (in_array($dbType, array('date', 'datetime', 'vardatetime', 'datetimetz'))) {
+            return 'date_range';
+        }
+        
         return $this->getFormType($dbType, $columnName);
     }
 
@@ -151,7 +157,11 @@ class DoctrineODMFieldGuesser extends ContainerAware
         if ('boolean' == $dbType) {
             return array('required' => false);
         }
-
+        
+        if ('date' == $dbType) {
+            return array('required' => $this->isRequired($columnName), 'format' => 'd MMM y', 'widget' => 'single_text');
+        }
+        
         if (preg_match("#^document#i", $formType) || preg_match("#document$#i", $formType)) {
             $mapping = $this->getMetadatas()->getFieldMapping($columnName);
 
@@ -198,6 +208,19 @@ class DoctrineODMFieldGuesser extends ContainerAware
     {
         $options = array('required' => false);
 
+        if ('date' == $dbType) {
+            $options['format'] = 'd MMM y';
+            $options['widget'] = 'single_text';
+            $options['from']['label'] = $this->container->get('translator')
+                        ->trans('date.from', array(), 'Admingenerator');
+            $options['to']['label'] = $this->container->get('translator')
+                        ->trans('date.to', array(), 'Admingenerator');
+        }
+
+        if ('datetime' == $dbType) {
+            $options['format'] = 'd MMM y';
+        }
+        
         if ('boolean' == $dbType) {
             $options['choices'] = array(
                0 => $this->container->get('translator')
@@ -206,8 +229,7 @@ class DoctrineODMFieldGuesser extends ContainerAware
                         ->trans('boolean.yes', array(), 'Admingenerator'),
             );
 
-            $options['empty_value'] = $this->container->get('translator')
-                ->trans('boolean.yes_or_no', array(), 'Admingenerator');
+            $options['empty_value'] = '';
         }
 
         if (preg_match("#^document#i", $formType) || preg_match("#document$#i", $formType)) {
