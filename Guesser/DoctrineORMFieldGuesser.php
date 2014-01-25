@@ -107,7 +107,9 @@ class DoctrineORMFieldGuesser extends ContainerAware
     {
         $formTypes = $this->container->getParameter('admingenerator.doctrine_form_types');
 
-        if (array_key_exists($dbType, $formTypes)) {
+        if ('date' === $dbType) {
+            return 'date';
+        } elseif (array_key_exists($dbType, $formTypes)) {
             return $formTypes[$dbType];
         } elseif ('virtual' === $dbType) {
             throw new NotImplementedException(
@@ -130,6 +132,10 @@ class DoctrineORMFieldGuesser extends ContainerAware
             return $filterTypes[$dbType];
         }
 
+        if (in_array($dbType, array('date', 'datetime', 'vardatetime', 'datetimetz'))) {
+            return 'date_range';
+        }
+        
         return $this->getFormType($dbType, $columnName);
     }
 
@@ -137,6 +143,10 @@ class DoctrineORMFieldGuesser extends ContainerAware
     {
         if ('boolean' == $dbType) {
             return array('required' => false);
+        }
+        
+        if ('date' == $dbType) {
+            return array('required' => $this->isRequired($columnName), 'format' => 'd MMM y', 'widget' => 'single_text');
         }
 
         if ('number' == $formType) {
@@ -197,6 +207,15 @@ class DoctrineORMFieldGuesser extends ContainerAware
     {
         $options = array('required' => false);
 
+        if ('date' == $dbType) {
+            $options['format'] = 'd MMM y';
+            $options['widget'] = 'single_text';
+        }
+
+        if ('datetime' == $dbType) {
+            $options['format'] = 'd MMM y';
+        }
+        
         if ('boolean' == $dbType) {
             $options['choices'] = array(
                0 => $this->container->get('translator')
@@ -204,8 +223,7 @@ class DoctrineORMFieldGuesser extends ContainerAware
                1 => $this->container->get('translator')
                         ->trans('boolean.yes', array(), 'Admingenerator')
             );
-            $options['empty_value'] = $this->container->get('translator')
-                ->trans('boolean.yes_or_no', array(), 'Admingenerator');
+            $options['empty_value'] = '';
         }
 
         if (preg_match("#^entity#i", $formType) || preg_match("#entity$#i", $formType)) {

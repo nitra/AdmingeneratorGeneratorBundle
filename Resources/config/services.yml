@@ -1,0 +1,10 @@
+services:
+    form.type.date_range:
+        class: Admingenerator\GeneratorBundle\Form\Type\DateRangeType
+        tags:
+            -  { name: form.type, alias: date_range }
+
+    form.type.date:
+        class: Admingenerator\GeneratorBundle\Form\Type\DateType
+        tags:
+            -  { name: form.type, alias: date }

@@ -72,3 +72,69 @@
     {% endif %}
 {% endspaceless %}
 {% endblock form_errors %}
+
+
+{# --- FORM ROWS --- #}
+
+{% block date_range_row %}
+    {% spaceless %}
+        <div class="form_row field_date_range">
+            {{ form_label(form) }}
+            <div class="field_content">
+                {{ form_errors(form) }}
+                {{ form_widget(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock date_range_row %}
+
+
+
+{# --- FORM WIDGETS --- #}
+
+{% block date_widget %}
+    {% spaceless %}
+        {{ block('form_widget_simple') }}
+        <script>
+            $(function() {
+              $( "#{{ id }}" ).datepicker({
+                  dateFormat: '{{ dateFormat }}',
+                });
+              $.datepicker.setDefaults($.datepicker.regional['{{locale}}']);
+            });
+        </script>
+    {% endspaceless %}
+{% endblock date_widget %}
+        
+{% block choice_widget_expanded %}
+{% spaceless %}
+        <ul {{ block('widget_container_attributes') }} class="collection">
+            {% for child in form %}
+                <li>
+                    {{ form_widget(child) }}
+                    {{ form_label(child) }}
+                </li>        
+            {% endfor %}
+        </ul>        
+{% endspaceless %}
+{% endblock choice_widget_expanded %}        
+
+{% block double_list_widget %}
+{% spaceless %}
+    <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/javascripts/double_list.js') }}"></script>
+    <div class="double_list">
+        <div class="double_list_unselected">
+            {% include "AdmingeneratorGeneratorBundle:Form/DoubleList:unselected_list.html.twig" %}
+        </div>
+        <div class="double_list_links">
+            <a href="#" class="next" onclick="sfDoubleList.move('{{ id }}_unselected','{{ id }}_selected'); return false;"></a>
+            <br />
+            <a href="#" class="prev" onclick="sfDoubleList.move('{{ id }}_selected','{{ id }}_unselected'); return false;"></a>
+        </div>
+        <div class="double_list_selected">
+            {% include "AdmingeneratorGeneratorBundle:Form/DoubleList:selected_list.html.twig" %}
+        </div>
+        {% include "AdmingeneratorGeneratorBundle:Form/DoubleList:javascript.html.twig" %}
+    </div>
+{% endspaceless %}
+{% endblock %}
