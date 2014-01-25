@@ -1,25 +1,23 @@
-{% block form_fieldset %}
+{% block form_fieldset %} 
 {{ echo_block("form_fieldset_" ~ fieldset|classify|replace({'.': '_'})) }}
-    <fieldset class="form_block form_fieldset_{{ fieldset|classify|replace({'.': '_'}) }} tab-pane">
-        {% if "NONE" != fieldset[:4] %}
-        <legend><span>{{ echo_trans(fieldset,{}, i18n_catalog|default("Admin") ) }}</span></legend>
+    <fieldset class="form_block form_fieldset_{{ fieldset|classify|replace({'.': '_'}) }} fieldset_tabbable">
+        {% if "NONE" != fieldset %}
+        <legend><span>{{ echo_trans(fieldset,{}, i18n_catalog is defined ? i18n_catalog : "Admin" ) }}</span></legend>
         {% endif %}
         {% for rows in builder.fieldsets[fieldset] %}
-            <div class="row-fluid">
-                {% for field in rows %}
-                    {% if builder.Columns[field].credentials %}
-                          {{ echo_if_granted(builder.Columns[field].credentials, builder.ModelClass) }}
-                    {% endif %}
-                    <div class="control-group form_field field_{{ builder.Columns[field].formType }} field_{{ field }}">
-                        {{ echo_block("form_" ~ field) }}
-                            {{ echo_twig("form_row(form['" ~ field ~ "'])") }}
-                        {{ echo_endblock() }}
-                    </div>
-                    {% if builder.Columns[field].credentials %}
-                        {{ echo_endif () }}
-                    {% endif %}
-                {% endfor %}
-            </div>
+            {% for field in rows %}
+                {% if builder.Columns[field].credentials %}
+                      {{ echo_if_granted(builder.Columns[field].credentials, builder.ModelClass) }}
+                {% endif %}
+
+                {{ echo_block("form_" ~ field) }}
+                    {{ echo_twig("form_row(form['" ~ field ~ "'])") }}
+                {{ echo_endblock() }}
+
+                {% if builder.Columns[field].credentials %}
+                    {{ echo_endif () }}
+                {% endif %}
+            {% endfor %}
         {% endfor %}
     </fieldset>
 {{ echo_endblock() }}

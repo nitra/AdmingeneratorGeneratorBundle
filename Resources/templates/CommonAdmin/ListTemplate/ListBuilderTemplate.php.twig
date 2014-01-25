@@ -1,7 +1,7 @@
-{% use '../CommonAdmin/ListTemplate/scopes.php.twig' %}
+{% use '../CommonAdmin/title.php.twig' %}
 {% use '../CommonAdmin/stylesheets.php.twig' %}
 {% use '../CommonAdmin/javascripts.php.twig' %}
-{% use '../CommonAdmin/title.php.twig' %}
+{% use '../CommonAdmin/ListTemplate/scopes.php.twig' %}
 
 {{ echo_extends( builder.getBaseAdminTemplate ) }}
 
@@ -11,27 +11,36 @@
 
 {{ echo_block("javascripts") }}
     {{- block('complementary_javascripts') -}}
+    <script src="{{ echo_twig('asset("bundles/admingeneratorgenerator/js/admingenerator/general.js")') }}"></script>
 {{ echo_endblock() }}
 
 {{- block('site_title') -}}
 
 {{ echo_block("body") }}
     {{- block('title') -}}
+    
+    <div class="admin_list main_content{% if builder.filterColumns|length == 0 %} full_size{% endif %}">
+    
+        {{- block('list_scopes') -}}
+        {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ 'List:results.html.twig') }}
+{#
+        <table id="table-list-{{ builder.ModelClass }}">
+            {{ block('list_thead') -}}
+            {{- block('list_tbody') }}
+        </table>
 
-    <div class="row-fluid">
-        <div class="{% if builder.filterColumns|length == 0 %} span12 {% else %} span9 {% endif %}">
-            {{- block('list_scopes') -}}
-
-            {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ 'List:results.html.twig') }}
+        {{- block('list_paginator_pages') -}}
+        {{- block('list_batch_actions') -}}
+        <div id="generic_actions" class="actions list_actions">
+            {{ block('list_actions') -}}
         </div>
-        
-        {{ echo_block("filters") }}
-            {% if builder.filterColumns|length > 0 %}
-            <div class="span3">
-                {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ 'List:filters.html.twig') }}
-            </div>
-            {% endif %}
-        {{ echo_endblock() }}
-
+        {{- block('endform_batch_actions') }}
+#}
     </div>
+
+    {{ echo_block("filters") }}
+        {% if builder.filterColumns|length > 0 %}
+            {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ 'List:filters.html.twig') }}
+        {% endif %}
+    {{ echo_endblock() }}
 {{ echo_endblock() }}

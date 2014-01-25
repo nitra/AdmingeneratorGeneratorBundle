@@ -26,13 +26,12 @@
 
 {% block form_row %}
 {% spaceless %}
-    <div class="control-group {{ name }}{% if errors|length > 0 %} error{% endif %}">
+    <div class="form_row field_{{ form.vars.name }} {% if errors|length > 0 %} field_error{% endif %}">
         {{ form_label(form) }}
-        <div class="controls">
-        {{ form_widget(form) }}
-        {% if not compound %}
+        <div class="field_content">
             {{ form_errors(form) }}
-        {% endif %}
+            {{ form_widget(form) }}
+            {{ block('form_help') }}
         </div>
     </div>
 {% endspaceless %}
@@ -40,8 +39,6 @@
 
 {% block form_label %}
 {% spaceless %}
-{% if label is not sameas(false) %}
-    {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label')|trim}) %}
     {% if not compound %}
         {% set label_attr = label_attr|merge({'for': id}) %}
     {% endif %}
@@ -52,27 +49,24 @@
         {% set label = name|humanize %}
     {% endif %}
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
-{% endif %}
 {% endspaceless %}
 {% endblock form_label %}
 
 {% block form_errors %}
 {% spaceless %}
     {% if errors|length > 0 %}
-    <span class="help-block">
-        <ul class="form-errors">
+    <ul class="errors">
         {% for error in errors %}
-            <li>{{ error.messagePluralization is null
-                ? error.messageTemplate|trans(error.messageParameters, 'validators')
-                : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+            <li>{{
+                error.messagePluralization is null
+                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                    : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
             }}</li>
         {% endfor %}
-        </ul>
-    </span>
+    </ul>
     {% endif %}
 {% endspaceless %}
 {% endblock form_errors %}
-
 
 {# --- FORM ROWS --- #}
 
@@ -138,3 +132,71 @@
     </div>
 {% endspaceless %}
 {% endblock %}
+
+
+{% block ajax_autocomplete_widget %}
+
+    {% spaceless %}
+        {{ form_widget(form.name) }}
+        {{ form_widget(form.id) }}
+    {% endspaceless %}
+
+    {% stylesheets '@AdmingeneratorGeneratorBundle/Resources/public/css/jquery.autocomplete.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% javascripts '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery.autocomplete.js' %}
+            <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% spaceless %}
+
+        <script type="text/javascript">
+
+          (function(){
+                $('#{{ form.name.vars.id }}').autocomplete('{{ path (autocompleteActionRouting) }}', {
+                    minChars: {{ minChars }},
+                    delimiter: /(,|;)\s*/,
+                    maxHeight: {{ maxHeight }},
+                    width: {{ width }},
+                    zIndex: 9999,
+                    deferRequestBy: {{ deferRequestBy }},
+                    dataType: "json",
+                    extraParams: {
+                        {{ extraParamsString | raw }}
+                    },
+
+                    onItemSelect: function(row) {
+
+
+                            {# Для использования json данных необходимо в Контроллере,
+                               который возвращает данные для выпадающего списка возвращать данные в следующем формате
+
+$Строка_отображения_во_время_набора_с_клавиатуры . "|" . $Строка_которая_подставиться_при_выборе_из_списка . "|" . $Идентификатор . '|' . json_encode($json-данные_для_обработки_в_скрипте)
+
+                            Сюда данные прийдут в переменной row.extra[2]
+                            Для превращения их в Javascript-массив выполняем следующее
+
+                            value1 = eval('('+row.extra[2]+')');
+
+                            После чего в value1 у нас javascript-массив, к елементам которго можно обращатся value1.ключ_в_массиве
+
+                            #}
+
+                            $('#{{ form.name.vars.id }}').val(row.extra[0]);
+                            $('#{{ form.id.vars.id }}').val(row.extra[1]);
+
+                            {{ afterItemSelectJavascript | raw }}
+                        }
+
+                }).change(function(){
+                                        if (!$.trim(this.value)) {
+                                            $('#{{ form.id.vars.id }}').val('').change();
+                                        }
+
+                                    });
+       })();
+        </script>
+
+    {% endspaceless %}
+{% endblock ajax_autocomplete_widget %}

@@ -1,0 +1,47 @@
+{% extends '::base_admin.html.twig' %}
+
+{% block header %}
+    {% block logo %}
+        <div class="logo">
+            Вход в систему "{{ block('title') }}"
+        </div>
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="login_content">
+    {% block fos_user_content %}
+    {% if error %}
+        <div class="notification_box error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+    {% endif %}
+
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+    {% else %}
+        <form class="form_block" action="{{ path("fos_user_security_check") }}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+            <div class="form_row">
+                <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" />
+            </div>
+
+            <div class="form_row">
+                <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                <input type="password" id="password" name="_password" />
+            </div>
+
+            <div class="form_row" style="display: none;">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+            </div>
+
+            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+        </form>
+    {% endif %}
+    {% endblock %}
+</div>
+{% endblock %}

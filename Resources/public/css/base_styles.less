@@ -1,0 +1,126 @@
+/*************************** Base styles *************************/
+
+@color-link: #377197;
+@color-border: #e0e0e0;
+@border-radius: 5px; 
+@image-icon: url(../images/action_icons.png); 
+@image-arrow: url(../images/arrow_icons.png); 
+
+.absolute_left  (@top: 0px, @left:  0px) { position: absolute; top: @top; left:  @left; }
+.absolute_right (@top: 0px, @right: 0px) { position: absolute; top: @top; right: @right; }
+
+.menu           (@color_border: #fff, @color_bg: #000, @transparent: 90%, @color_text: #fff ) { 
+                color: @color_text; background: fadeout(@color_bg, @transparent); border: 1px solid fadeout(@color_border, @transparent); border-radius: @border-radius;
+    a, span, .link    { display: inline-block; padding: 7px 10px; color: fadeout(@color_text, 30%); cursor: pointer; }
+    &:hover     { background: fadeout(@color_bg, (@transparent - 20%)); border-color: fadeout(@color_border, (@transparent - 20%));
+        a, span, .link{ color: @color_text; text-decoration: none; }
+    }
+    &.active    { background: @color_border; border-color: @color_border;
+        a, span, .link{ color: @color_text;  }
+    }
+    &.current   { background: @color_bg; border-color: @color_border;
+        a, span, .link{ color: @color_text;  }
+    }
+}
+
+.round_box (@color: #c1c1c1, @radius: @border-radius) { 
+    border-radius: @radius; 
+    border: 1px solid @color;
+    padding: 5px 7px;
+}
+.focus_box (@color_border: @color-link) { 
+    border-color: @color_border; 
+    box-shadow: 0 0 10px lighten(@color_border, 40%);
+    color: darken(@color_border, 40%);
+}
+
+
+.gradient (@color_from, @color_to) {
+    background-image: linear-gradient(bottom, @color_from, @color_to);
+    background-image: -o-linear-gradient(bottom, @color_from, @color_to);
+    background-image: -moz-linear-gradient(bottom, @color_from, @color_to);
+    background-image: -webkit-linear-gradient(bottom, @color_from, @color_to);
+    background-image: -ms-linear-gradient(bottom, @color_from, @color_to);
+}
+.gradient_icon (@color_from, @color_to) {
+    background-image: @image-icon, linear-gradient(bottom, @color_from, @color_to);
+    background-image: @image-icon, -o-linear-gradient(bottom, @color_from, @color_to);
+    background-image: @image-icon, -moz-linear-gradient(bottom, @color_from, @color_to);
+    background-image: @image-icon, -webkit-linear-gradient(bottom, @color_from, @color_to);
+    background-image: @image-icon, -ms-linear-gradient(bottom, @color_from, @color_to);
+    background-position: 6px -56px, 0 0;
+    background-repeat: no-repeat;
+}
+
+/* BUTTONS */
+.button                 { .round_box; .gradient (#D4D4D4, #EEEEEE); display: inline-block; cursor: pointer; font-size: 1em; line-height: 1em; color: #333;
+    &:hover             { .focus_box; .gradient (#C6CFD5, #E8F3F9); text-decoration: none; }
+}
+.button_icon            { .button; .gradient_icon (#D4D4D4, #EEEEEE); padding-left: 30px !important; min-height: 13px;
+    &:hover             { .gradient_icon (#C6CFD5, #E8F3F9); }
+    &.new               { background-position: 6px 4px, 0 0; }
+    &.edit              { background-position: 6px -86px, 0 0; }
+    &.delete            { background-position: 6px -116px, 0 0; }
+    &.filter            { background-position: 6px -25px, 0 0; }
+    &.list              { background-position: 6px -146px, 0 0; }
+    &.copy              { background-position: 6px -326px, 0 0; }
+    &.print             { background-position: 6px -476px, 0 0; }
+    &.payment           { background-position: 6px -566px, 0 0; }
+    &.save              { background-position: 6px -686px, 0 0; }
+    &.save-and-list     { background-position: 6px -686px, 0 0; }
+    &.save-and-add      { background-position: 6px -686px, 0 0; }
+    &.invoice           { background-position: 6px -536px, 0 0; }
+    &.act               { background-position: 6px -716px, 0 0; }
+    &.tool              { background-position: 6px -776px, 0 0; }
+    &.next              { background-position: 6px -806px, 0 0; }
+    &.prev              { background-position: 6px -146px, 0 0; }
+    &.excel             { background-position: 6px -296px, 0 0; }
+}
+
+/* LINKS */
+.link                   { color: @color-link; text-decoration: none; cursor: pointer;
+    &:hover             { color: saturate(@color-link, 50%); text-decoration: underline; }
+}
+.link_icon              { .link; display: inline-block; padding: 0 0 1px 20px; background: @image-icon no-repeat 0px 20px; 
+    &.new               { background-position: 0px 0px; }
+    &.edit              { background-position: 0px -90px; }
+    &.delete            { background-position: 0px -120px; }
+    &.list              { background-position: 0px -150px; }
+    &.copy              { background-position: 0px -330px; }
+    &.payment           { background-position: 0px -570px; }
+    &.invoice           { background-position: 0px -540px; }
+    &.act               { background-position: 0px -720px; }
+    &.tool              { background-position: 0px -780px; }
+    &.next              { background-position: 0px -810px; }
+    &.prev              { background-position: 0px -150px; }
+    &.excel             { background-position: 0px -300px; }
+}
+a                       { .link; }
+
+/* TABLE */
+.table                  { width: 100%; background: #fff; border: 1px solid @color-border; 
+    th                  { .gradient (#e5e5e5, #F7F7F7); padding: 7px; border: 1px solid @color-border; vertical-align: middle; }
+    td                  { padding: 2px 7px; height: 30px; border: 1px solid @color-border; vertical-align: middle; }
+    tr:hover td         { background: #FFFFdd; }
+    td.td_decimal       { white-space: nowrap; text-align: right; }
+    td.td_boolean       { text-align: center; }
+    tr.row_total td     { background: #eaeaea; font-weight: bold; }
+    tr.row_highlight td { background: #ffa; }
+}
+
+/* POPUP */
+.popup                  { display: none; 
+    .popup_arrow        { display: inline-block; width: 15px; height: 15px; border: 1px solid #ddd; border-radius: 3px; cursor: pointer; background: @image-arrow 2px -35px no-repeat #fafafa; }
+    .popup_content      { display: none; }
+    &.popup_ready       { display: inline-block; position: relative; z-index: 1; }
+    &.popup_active      { z-index: 1000;  }
+    &.popup_active .popup_content    { display: block; z-index: 1000; position: absolute; top: 17px; left: 0px; padding: 8px; background: #fff; border: 1px solid #ddd; border-radius: 5px; box-shadow: 2px 2px 4px #999;}
+    &.popup_active .popup_arrow      { background-position: 2px -16px; }
+    &.popup_right  .popup_content    { left: auto; right: 0px; }
+}
+
+/* OTHER */
+.red                    { color: #d70000; }
+.green                  { color: #009900; }
+.ar                     { text-align: right; }
+.ac                     { text-align: center; }

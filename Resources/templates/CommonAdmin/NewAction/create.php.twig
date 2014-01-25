@@ -10,7 +10,7 @@
         ${{ builder.ModelClass }} = $this->getNewObject();
 
         $this->preBindRequest(${{ builder.ModelClass }});
-        $form = $this->createForm($this->getNewType(), ${{ builder.ModelClass }}, $this->getFormOptions(${{ builder.ModelClass }}));
+        $form = $this->createForm($this->getNewType(), ${{ builder.ModelClass }});
         $form->bind($this->get('request'));
 
         if ($form->isValid()) {
@@ -51,6 +51,10 @@
      */
     public function onException(\Exception $exception, \Symfony\Component\Form\Form $form, \{{ model }} ${{ builder.ModelClass }})
     {
+        if ($this->container->get('kernel')->getEnvironment() == 'dev') {
+            $this->get('session')->getFlashBag()->add('error', $exception->getMessage());
+        }
+        
         if ($this->container->getParameter('kernel.debug')) {
             throw $exception;
         }

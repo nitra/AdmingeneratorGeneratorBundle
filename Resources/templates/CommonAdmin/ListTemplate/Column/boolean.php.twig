@@ -1,9 +1,5 @@
 {% block column_boolean %}
-{% spaceless %}
-{{ echo_if(builder.ModelClass ~ '.' ~ column.getter) }}
-    <i class="icon-ok"></i>
-{{ echo_else() }}
-    <i class="icon-remove"></i>
-{{ echo_endif() }}
-{% endspaceless %}
+    {{ echo_if (builder.ModelClass ~ '.' ~ column.getter) }}
+        <b class="green">&#10004;</b>
+    {{ echo_endif () -}}
 {% endblock %}
