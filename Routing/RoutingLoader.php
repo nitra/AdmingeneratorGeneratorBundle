@@ -139,6 +139,16 @@ class RoutingLoader extends FileLoader
             }
         }
 
+        // Import other routes from a controller directory (@Route annotation)
+        if ($controller_folder) {
+            $annotationRouteName = '@' . $fullBundleName . '/Controller/' . $controller_folder . '/';
+            try {
+                $collection->addCollection($this->import($annotationRouteName, 'annotation'));
+            } catch (FileLoaderLoadException $e) {
+                // Don't do anything... this means FrameworkExtraBundle is not loaded
+            }
+        }
+        
         return $collection;
     }
 
