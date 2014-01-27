@@ -58,11 +58,124 @@ All the installation instructions are located in [documentation](https://github.
 
 The documentation for this bundle is located in `Resources/doc` directory. Start by reading [Table of contents](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/blob/master/Resources/doc/documentation.md#table-of-contents).
 
-## Support
+### Translations
 
-If you're haveing trouble or you found an error feel free to open a github ticket, but first please read [submitting issues](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/blob/master/Resources/doc/support-and-contribution/submitting-issues.md).
+If you wish to use default texts provided in this bundle, you have to make
+sure you have translator enabled in your config.
 
-## Sensio Connect
+``` yaml
+# app/config/config.yml
 
-https://connect.sensiolabs.com/club/symfony2admingenerator
+framework:
+    translator: ~
+```
 
+For more information about translations, check [Symfony documentation](http://symfony.com/doc/current/book/translation.html).
+
+## Installation
+
+Installation is a 3 step process:
+
+1. Download NitraThemeBundle using composer
+2. Enable the Bundle
+3. Configure the NitraThemeBundle
+
+### Step 1: Download NitraThemeBundle using composer
+
+Add NitraThemeBundle in your composer.json:
+
+```js
+{
+    "require": {
+        "nitra/admingenerator-generator-bundle": "2.3.*@dev"
+    }
+}
+```
+
+Now tell composer to download the bundle by running the command:
+
+``` bash
+$ php composer.phar update nitra/admingenerator-generator-bundle
+```
+    
+Composer will install the bundle to your project's `vendor/nitra` directory.
+
+### Step 2: Enable the bundle
+
+Enable the bundle in the kernel:
+
+``` php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+        new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+        new Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle(),
+        new Millwright\MenuBundle\MillwrightMenuBundle(),
+		new Millwright\ConfigurationBundle\MillwrightConfigurationBundle(),
+		new FOS\UserBundle\FOSUserBundle(),
+    );
+}
+```
+### Step 3: Configure 
+
+Add the following configuration to your `config.yml` file according to which type
+of datastore you are using.
+
+``` yaml
+# app/config/config.yml
+imports:
+    - { resource: menu.yml }
+    - { resource: ../../vendor/nitra/doctrine-behaviors/config/orm-services.yml }
+
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ AdmingeneratorGeneratorBundle ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        lessphp: ~
+
+# Doctrine Configuration
+doctrine:
+    orm:
+        filters:
+            softdeleteable:
+                class: Admingenerator\GeneratorBundle\Filter\SoftDeleteableFilter
+                enabled: true
+        hydrators:
+            KeyPair: Admingenerator\GeneratorBundle\Hydrators\KeyPairHydrator      
+            
+# FOS Configuration
+fos_user:
+    db_driver: orm # other valid values are 'mongodb'
+    firewall_name: main
+    user_class: Nitra\NitraThemeBundle\Entity\User
+	
+# Admingenerator Configuration
+admingenerator_generator:
+    base_admin_template: ::base_admin.html.twig
+    use_doctrine_orm: true
+    stylesheets: []
+    twig:
+        use_localized_date: true
+        date_format: 'Y-M-d'
+        localized_date_format: 'full'
+        localized_datetime_format: 'medium'
+        datetime_format: 'Y-m-d H:i'  
+        number_format:
+            decimal: 2
+            decimal_point: ','
+            thousand_separator: ' '
+			
+# Add blameable listener
+parameters:
+    knp.doctrine_behaviors.blameable_listener.user_entity: Nitra\NitraThemeBundle\Entity\User			
+```
