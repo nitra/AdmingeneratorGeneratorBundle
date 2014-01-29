@@ -1,0 +1,4 @@
+NitraTopsBundle_admin_nitra_tops_bundle_income:
+    resource: "@NitraTopsBundle/Controller/Income/"
+    type:     admingenerator
+    prefix:   /admin/nitra_tops_bundle/income

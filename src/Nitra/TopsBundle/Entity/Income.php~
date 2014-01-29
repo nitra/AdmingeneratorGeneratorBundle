@@ -1,0 +1,64 @@
+<?php
+
+namespace Nitra\TopsBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+
+/**
+ * Income
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Income {
+
+//    use ORMBehaviors\Timestampable\Timestampable,
+//        ORMBehaviors\Blameable\Blameable,
+//        ORMBehaviors\SoftDeletable\SoftDeletable;
+
+    use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * Дата прихода на счет
+     *
+     * @ORM\Column(type="date")
+     * 
+     * @Assert\NotBlank
+     * @Assert\Date
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2)
+     *
+     * @Assert\NotBlank
+     * @Assert\Range(min = "0.01")
+     */
+    private $amount;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comment;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+}

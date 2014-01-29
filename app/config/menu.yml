@@ -1,0 +1,24 @@
+millwright_menu:
+    renderers:
+        navigation: #menu type id
+            renderer: null # custom renderer
+            rendererOptions:
+                template: AdmingeneratorGeneratorBundle::knp_menu.html.twig  
+                ancestorClass: current active
+                currentClass: current
+
+    items: 
+      finance:
+        label: Фінанси
+    
+        
+               
+      
+        
+    tree: #menu containers
+      main: #main container
+        type: navigation # menu type id
+        children:
+          finance:
+
+      
