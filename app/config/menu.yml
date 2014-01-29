@@ -9,16 +9,26 @@ millwright_menu:
 
     items: 
       finance:
-        label: Фінанси
+        label: Финансы
+      income:
+        label: Поступление
+        route: Nitra_TopsBundle_Income_list
+      account:
+        label: Счета
+        route: Nitra_TopsBundle_Account_list
+          
+        
     
         
                
-      
-        
     tree: #menu containers
       main: #main container
         type: navigation # menu type id
         children:
           finance:
+            children:
+              income: ~
+              account: ~
+             
 
       

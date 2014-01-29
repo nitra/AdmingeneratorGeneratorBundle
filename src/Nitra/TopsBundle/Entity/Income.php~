@@ -14,9 +14,9 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  */
 class Income {
 
-//    use ORMBehaviors\Timestampable\Timestampable,
-//        ORMBehaviors\Blameable\Blameable,
-//        ORMBehaviors\SoftDeletable\SoftDeletable;
+    use ORMBehaviors\Timestampable\Timestampable,
+        ORMBehaviors\Blameable\Blameable,
+        ORMBehaviors\SoftDeletable\SoftDeletable;
 
     use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
 
@@ -61,4 +61,73 @@ class Income {
         return $this->id;
     }
 
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Income
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param string $amount
+     * @return Income
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return string 
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return Income
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
 }

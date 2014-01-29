@@ -130,4 +130,4 @@ class Income {
     {
         return $this->comment;
     }
-}
+    }
