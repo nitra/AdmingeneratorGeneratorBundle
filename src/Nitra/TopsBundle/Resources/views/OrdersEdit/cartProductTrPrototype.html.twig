@@ -1,0 +1,24 @@
+<tr iteration="__iteration__" >
+    <td class="number order_entry_total">
+              {{ form_row(form.add_order_entry)|e }}
+         {{ form_widget(orderEntryForPrototype.vars.prototype.production)|e }}
+    </td>
+    <td class="price">
+        {{ form_widget(orderEntryForPrototype.vars.prototype.orientation)|e }}
+    </td>
+    <td>
+        {{ form_widget(orderEntryForPrototype.vars.prototype.quantity)|e }}
+    </td>
+
+    <td class="price">
+        {{ form_widget(orderEntryForPrototype.vars.prototype.price)|e }}
+
+    </td>
+    <td class="currency">
+        {{ form_widget(orderEntryForPrototype.vars.prototype.assemblyCost)|e }}
+    </td>
+
+    <td class="delete">
+        <a href="javascript:void(0);" alt="Удалить" onclick="delProductOE(this)">X</a>
+    </td>
+</tr>

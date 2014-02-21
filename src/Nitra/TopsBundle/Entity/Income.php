@@ -51,6 +51,24 @@ class Income {
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
+    
+    /**
+     * счет
+     * @ORM\ManyToOne(targetEntity="Account")
+     * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank
+     */
+    protected $account;
+    
+      /**
+     * заказ
+     * @ORM\ManyToOne(targetEntity="Orders")
+     * @ORM\JoinColumn(nullable=true)
+     *
+     * @Assert\NotBlank
+     */
+    protected $orders;
 
     /**
      * Get id
@@ -107,7 +125,7 @@ class Income {
     {
         return $this->amount;
     }
-
+    
     /**
      * Set comment
      *
@@ -130,4 +148,50 @@ class Income {
     {
         return $this->comment;
     }
+    
+    /**
+     * Set account
+     *
+     * @param \Nitra\TopsBundle\Entity\Account $account
+     * @return Income
+     */
+    public function setAccount(\Nitra\TopsBundle\Entity\Account $account)
+    {
+        $this->account = $account;
+
+        return $this;
     }
+
+    /**
+     * Get account
+     *
+     * @return \Nitra\TopsBundle\Entity\Account 
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
+     * Set orders
+     *
+     * @param \Nitra\TopsBundle\Entity\Orders $orders
+     * @return Income
+     */
+    public function setOrders(\Nitra\TopsBundle\Entity\Orders $orders = null)
+    {
+        $this->orders = $orders;
+
+        return $this;
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Nitra\TopsBundle\Entity\Orders 
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+}

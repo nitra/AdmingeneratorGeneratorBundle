@@ -1,0 +1,77 @@
+{% extends_admingenerated "NitraTopsBundle:OrdersEdit:index.html.twig" %}
+
+
+{% block javascript_head %}
+ {{ parent() }}
+
+<script type="text/javascript">
+
+    /**
+     * добавление нового товара
+     **/
+
+    function addProductOE() {
+
+        // получаем данные которые будут добавляться при сосздании новой позиции 
+        var prototype = $('#cart_product').data('prototype');
+        var index = getProductsCounter();
+        var newForm = prototype.replace(/__name__/g, index).replace(/__iteration__/g, (index + 1));
+        $(newForm).insertAfter($("tr:first"));
+
+    }
+
+    /**
+     * подсчет кол-ва TR продуктов 
+     **/
+    function getProductsCounter() {
+
+        var counter = 0;
+        var iterations = [];
+
+        // получить максивальный элемент массива
+        iterations.max = function(arr) {
+            return Math.max.apply(Math, arr);
+        };
+
+        // обойти все TR с продуктами
+        $('#cart_product tr').each(function() {
+            // проверить установлен ли атрибут iteration для TR
+            if (typeof ($(this).attr('iteration')) != 'undefined') {
+                // наполнить массив 
+                iterations.push(parseInt($(this).attr('iteration')));
+            }
+        });
+        // проверить кол-во елементов в массиве, для выбора максимального значения
+        if (iterations.length) {
+            // получить максимальный элемент массива
+            counter = iterations.max(iterations);
+        }
+        // вернуть счетчик
+        return counter;
+    }
+
+    /*
+     * удаление позиции заказа
+     */
+    function delProductOE(_this) {
+        console.log(_this);
+        $(_this).closest('tr').remove();
+    }
+
+
+    /*
+     * для записи id product в виджет и трансформирование id в object
+     */
+    $(function() {
+        $('body').on('click', 'input.save', function() {
+            $('input#edit_orders_add_order_entry_id').each(function() {
+                var id_product = $(this).val();
+                $(this).closest('td').find('input.order_entry_production').val(id_product)
+
+            });
+        })
+
+    });
+</script>
+
+{% endblock %}

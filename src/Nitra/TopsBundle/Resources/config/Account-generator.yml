@@ -5,7 +5,11 @@ params:
     concurrency_lock: ~
     bundle_name: TopsBundle
     pk_requirement: ~
-    fields: ~
+    fields: 
+      name: {label: Название}
+      requisites: {label: Реквизиты, addFormOptions: { required: false }}
+      updatedAt: {label: Когда изменял}
+      updatedBy: {label: Кто изменял}
     object_actions:
         delete: ~
     batch_actions:
@@ -13,8 +17,8 @@ params:
 builders:
     list:
         params:
-            title: List for TopsBundle
-            display: ~
+            title: Список счетов
+            display:  [name, requisites, updatedAt, updatedBy ]
             actions:
                 new: ~
             object_actions:
@@ -22,18 +26,18 @@ builders:
                 delete: ~
     filters:
         params:
-            display: ~
+            display: [name , requisites]
     new:
         params:
-            title: New object for TopsBundle
-            display: [name]
+            title: Создание нового счета
+            display: [name, requisites]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: Account.name }|"
-            display: [name]
+            title: "Редактирование счета \"%object%\"|{ %object%: Account.name }|"
+            display: [name , requisites]
             actions:
                 save: ~
                 list: ~

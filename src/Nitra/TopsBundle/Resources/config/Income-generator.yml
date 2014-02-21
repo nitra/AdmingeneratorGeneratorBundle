@@ -5,7 +5,14 @@ params:
     concurrency_lock: ~
     bundle_name: TopsBundle
     pk_requirement: ~
-    fields: ~
+    fields:
+      id: { label: № }
+      date: { label: Дата }
+      amount: { label: Сумма }   
+      account: { label: Счет }
+      comment: { label: Коментарий}
+      orders: { label: Заказ}
+  
     object_actions:
         delete: ~
     batch_actions:
@@ -13,8 +20,8 @@ params:
 builders:
     list:
         params:
-            title: List for TopsBundle
-            display: ~
+            title: Список поступлений 
+            display: [id, date, amount, orders, account, comment]
             actions:
                 new: ~
             object_actions:
@@ -22,18 +29,18 @@ builders:
                 delete: ~
     filters:
         params:
-            display: ~
+            display:  [id, date, amount,orders, account, comment]
     new:
         params:
-            title: New object for TopsBundle
-            display: [date, amount, comment]
+            title: Создание поступления
+            display: [date, amount,orders, account, comment]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
             title: "You're editing the object \"%object%\"|{ %object%: Income.id }|"
-            display: [date, amount, comment]
+            display: [date, amount, account, comment]
             actions:
                 save: ~
                 list: ~

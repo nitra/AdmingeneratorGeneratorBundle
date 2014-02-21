@@ -16,11 +16,31 @@ millwright_menu:
       account:
         label: Счета
         route: Nitra_TopsBundle_Account_list
+      expanse:
+        label: Расходы
+        route: Nitra_TopsBundle_Expanse_list
+      categoryExpanse:
+        label: Категории расход
+        route: Nitra_TopsBundle_CategoryExpanse_list
+      catalog:
+        label: Спарвочники
+      buyer:
+        route: Nitra_TopsBundle_Buyer_list
+        label: Клиенты
+      orders:
+        route: Nitra_TopsBundle_Orders_list
+        label: Заказы
+      production:
+        route: Nitra_TopsBundle_Production_list
+        label: Продукция
+      colors:
+        route: Nitra_TopsBundle_Colors_list
+        label: Цвета
+
           
         
     
         
-               
     tree: #menu containers
       main: #main container
         type: navigation # menu type id
@@ -28,7 +48,16 @@ millwright_menu:
           finance:
             children:
               income: ~
-              account: ~
+              expanse: ~      
+          catalog:
+              children:
+                account: ~
+                categoryExpanse: ~
+                buyer: ~
+                production: ~
+                colors: ~
+          orders:
+                  
              
 
       

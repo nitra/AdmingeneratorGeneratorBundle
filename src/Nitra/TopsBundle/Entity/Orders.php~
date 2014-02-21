@@ -1,0 +1,359 @@
+<?php
+
+namespace Nitra\TopsBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+
+/**
+ * Orders
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Orders
+{
+
+//
+//    use ORMBehaviors\Timestampable\Timestampable,
+//        ORMBehaviors\Blameable\Blameable,
+//        ORMBehaviors\SoftDeletable\SoftDeletable;
+//
+//use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderEntry", mappedBy="order")
+     */
+    private $orderEntry;
+
+    /**
+     * покупатель
+     * @ORM\ManyToOne(targetEntity="Buyer")
+     * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank
+     */
+    protected $buyer;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2)
+     *
+     * @Assert\NotBlank
+     * @Assert\Range(min = "0.01")
+     */
+    protected $amount;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2)
+     *
+
+     * @Assert\Range(min = "0")
+     */
+    protected $deliveryCost;
+
+    /**
+     * @var text $juridicalAddress
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $address;
+
+    /**
+     * Дата изготовления
+     *
+     * @ORM\Column(type="date")
+     * 
+     * @Assert\NotBlank
+     * @Assert\Date
+     */
+    private $madeAt;
+
+    /**
+     * Дата прихода на счет
+     *
+     * @ORM\Column(type="date")
+     * 
+     * @Assert\NotBlank
+     * @Assert\Date
+     */
+    private $deliveryDate;
+
+    /**
+     * @var text $comment
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $comment;
+
+    /**
+     * @var string $status Статус
+     * 
+     * @ORM\Column(type="string", length=11)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Choice(
+     *     choices = { "Новий", "Відправлено", "Отримано" },
+     *     message = "Неверный статус")
+     */
+    protected $status;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2)
+     *
+     * @Assert\NotBlank
+     */
+    private $repairedCost;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     *
+     * @Assert\NotBlank
+     */
+    private $repairedComment;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set buyer
+     *
+     * @param \Nitra\TopsBundle\Entity\Buyer $buyer
+     * @return Orders
+     */
+    public function setBuyer(\Nitra\TopsBundle\Entity\Buyer $buyer)
+    {
+        $this->buyer = $buyer;
+
+        return $this;
+    }
+
+    /**
+     * Get buyer
+     *
+     * @return \Nitra\TopsBundle\Entity\Buyer 
+     */
+    public function getBuyer()
+    {
+        return $this->buyer;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param string $amount
+     * @return Orders
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return string 
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set deliveryCost
+     *
+     * @param string $deliveryCost
+     * @return Orders
+     */
+    public function setDeliveryCost($deliveryCost)
+    {
+        $this->deliveryCost = $deliveryCost;
+
+        return $this;
+    }
+
+    /**
+     * Get deliveryCost
+     *
+     * @return string 
+     */
+    public function getDeliveryCost()
+    {
+        return $this->deliveryCost;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Orders
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set madeAt
+     *
+     * @param \DateTime $madeAt
+     * @return Orders
+     */
+    public function setMadeAt($madeAt)
+    {
+        $this->madeAt = $madeAt;
+
+        return $this;
+    }
+
+    /**
+     * Get madeAt
+     *
+     * @return \DateTime 
+     */
+    public function getMadeAt()
+    {
+        return $this->madeAt;
+    }
+
+    /**
+     * Set deliveryDate
+     *
+     * @param \DateTime $deliveryDate
+     * @return Orders
+     */
+    public function setDeliveryDate($deliveryDate)
+    {
+        $this->deliveryDate = $deliveryDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deliveryDate
+     *
+     * @return \DateTime 
+     */
+    public function getDeliveryDate()
+    {
+        return $this->deliveryDate;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return Orders
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return Orders
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->orderEntry = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add orderEntry
+     *
+     * @param \Nitra\TopsBundle\Entity\OrderEntry $orderEntry
+     * @return Orders
+     */
+    public function addOrderEntry(\Nitra\TopsBundle\Entity\OrderEntry $orderEntry)
+    {
+        $this->orderEntry[] = $orderEntry;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderEntry
+     *
+     * @param \Nitra\TopsBundle\Entity\OrderEntry $orderEntry
+     */
+    public function removeOrderEntry(\Nitra\TopsBundle\Entity\OrderEntry $orderEntry)
+    {
+        $this->orderEntry->removeElement($orderEntry);
+    }
+
+    /**
+     * Get orderEntry
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrderEntry()
+    {
+        return $this->orderEntry;
+    }
+
+}

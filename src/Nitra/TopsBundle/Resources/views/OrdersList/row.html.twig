@@ -1,0 +1,20 @@
+{% extends_admingenerated "NitraTopsBundle:OrdersList:row.html.twig" %}
+
+{% block list_td_column_status %}
+    {{ parent() }} 
+<div>
+     {% set statusArray = {'new':'Новый', 'process':'Обработано', 'pre_document':'Подготовка документов', 'to_work':'Передано на производство','work':'В работе', 'ready':'Готов', 'shipped':'Отгружено'} %}
+                       {% for key,value in statusArray %}
+    <a href="javascript:void(0);"
+       onclick="" >
+        <img title="{{ value }}" alt="{{value}}" 
+             src="{{ asset('bundles/nitratops/images/order_' ~ key ~ '.png') }}" />
+    </a>
+     {% endfor %}
+
+</div>
+{% endblock list_td_column_status %}
+
+ {% block list_td_column_orderEntry %}
+  {% include "NitraTopsBundle:OrdersList:row.column.orderEntry.html.twig" %}
+{% endblock list_td_column_orderEntry %}

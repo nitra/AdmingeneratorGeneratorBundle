@@ -1,0 +1,109 @@
+{% extends_admingenerated "NitraTopsBundle:OrdersEdit:form.html.twig" %}
+
+    {% block form %}
+<form class="admin_form"
+        {% if Orders.id %}
+      action="{{ path("Nitra_TopsBundle_Orders_update", { 'pk': Orders.id }) }}"
+        {% else %}
+      action="{{ path("Nitra_TopsBundle_Orders_create") }}"
+        {% endif %}
+      method="post" {{ form_enctype(form) }}>
+
+        {{ form_errors(form) }}
+
+{% block form_fieldset_NONE %}
+    <fieldset class="form_block form_fieldset_NONE fieldset_tabbable">
+
+                {% block form_status %}
+                    {{ form_row(form['status']) }}
+                {% endblock form_status %}
+
+        <fieldset class="form_block form_fieldset_buyer dubble_column_rows">
+                {{ form_row(form.buyer_name) }}
+
+                {{ form_errors(form.buyer_phone) }}    
+               {{ form_row(form.buyer_phone) }}
+        </fieldset>
+
+                {% block form_amount %}
+                    {{ form_row(form['amount']) }}
+                {% endblock form_amount %}
+
+
+                {% block form_address %}
+                    {{ form_row(form['address']) }}
+                {% endblock form_address %}
+
+
+                {% block form_madeAt %}
+                    {{ form_row(form['madeAt']) }}
+                {% endblock form_madeAt %}
+
+
+                {% block form_deliveryDate %}
+                    {{ form_row(form['deliveryDate']) }}
+                {% endblock form_deliveryDate %}
+
+                   {% block form_deliveryCost %}
+                    {{ form_row(form['deliveryCost']) }}
+                {% endblock form_deliveryCost %}
+
+                {% block form_comment %}
+                    {{ form_row(form['comment']) }}
+                {% endblock form_comment %}
+
+    </fieldset>
+{% endblock form_fieldset_NONE %}
+
+    <table class="data_table" id="cart_product" data-prototype='{% include "NitraTopsBundle:OrdersEdit:cartProductTrPrototype.html.twig" with {'orderEntryForPrototype':form['orderEntry']} %}' >
+
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Ориентация</th>
+                <th>Кол-во</th>
+                <th>Цена</th>
+                <th>Цена сборки</th>
+                <th> </th>
+
+            </tr>
+        </thead>
+        <tbody id="cartList">
+        <input type='button' value="Добавить Товар" onclick="addProductOE()"/>
+                            {% for entry in form['orderEntry'] %}
+                                {% include "NitraTopsBundle:OrdersEdit:cartProductTr.html.twig" with {'orderEntry' : entry, 'iteration':loop.index} %}
+                            {% endfor %}
+        </tbody>
+    </table>  
+
+
+
+
+
+        {{ form_rest(form) }}
+
+        {% block form_buttons %}
+    <div id="edit-actions" class="actions form-actions">
+                {% block form_actions %}
+
+        <input type="submit" name="save" class="save btn-success"
+
+               value="{% trans from "Admingenerator" %}action.generic.save{% endtrans %}" />
+
+
+
+        <a class="list " href="{{ path("Nitra_TopsBundle_Orders_list") }}"
+
+           >{% trans from "Admingenerator" %}action.generic.list{% endtrans %}</a>
+
+
+            {% endblock form_actions %}
+
+    </div>
+
+        {% endblock form_buttons %}
+</form>
+    {% endblock form %}
+
+
+

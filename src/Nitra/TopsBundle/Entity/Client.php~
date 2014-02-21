@@ -1,0 +1,81 @@
+<?php
+
+namespace Nitra\TopsBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+
+/**
+ * Client
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Client
+{
+
+//    use ORMBehaviors\Timestampable\Timestampable,
+//        ORMBehaviors\Blameable\Blameable,
+//        ORMBehaviors\SoftDeletable\SoftDeletable;
+
+use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /** Номер телефона
+     * @ORM\Column(type="string", length=15, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Length(min="10", max="15")
+     * @Assert\Regex(pattern="/[\(\)\+\-0-9]{10,15}$/", message="Телефон указан не верно")
+     */
+    private $phone;
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(type="string", length=64)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Length(max = "64")
+     */
+    protected $name;
+
+    /**
+     * @var string $email На цю пощту буде надсилатися баланс
+     * 
+     * @ORM\Column(type="string", length=64, nullable=true, unique=true)
+     * 
+     * @Assert\Length(max = "64")
+     * @Assert\Email
+     */
+    protected $email;
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(type="string", length=64)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Length(max = "64")
+     */
+    protected $address;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+}

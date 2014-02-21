@@ -1,0 +1,73 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Nitra\TopsBundle\Entity\Orders
+    namespace_prefix: Nitra
+    concurrency_lock: ~
+    bundle_name: TopsBundle
+    pk_requirement: ~
+    fields:
+      id: {label: "№"}
+      buyer: {label: "Покупатель"}
+      buyerPhone:     { label: "Телефон", addFormOptions: { required: true }}
+      amount: {label: "Оплаты"}
+      address: {label: "Адрес"}
+      madeAt: {label: "Дата изг."}
+      deliveryDate: {label: "Дата достаки"}
+      comment: {label: "Примечание"}
+      orderEntry: {label: "Заказ"}
+      repairedComment: {label: "Доп."}
+      deliveryCost: {label: "Стоимость доставки"}
+      status:
+        label: Статус
+        formType: choice
+        addFormOptions:
+          choices: 
+            'Новый': 'Новый'
+            'В работе': 'В работе'      
+            'Готов': 'Готов'
+            
+           
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: Список заказов
+            display: [id, buyer, orderEntry, amount, address, madeAt, deliveryDate, deliveryCost, comment, repairedComment, status ] 
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    filters:
+        params:
+            display:  [status,buyer, address ,madeAt, deliveryDate,comment  ] 
+    new:
+        params:
+            title: New object for TopsBundle
+            display: [status,buyer, amount,address ,madeAt, deliveryDate, deliveryCost,comment  ] 
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "Редактирование заказа \"%object%\"|{ %object%: Orders.id }|"
+            display: [status, amount,address ,madeAt, deliveryDate, deliveryCost,comment  ] 
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Orders.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

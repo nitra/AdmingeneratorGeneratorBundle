@@ -1,0 +1,64 @@
+{% extends_admingenerated "NitraTopsBundle:OrdersList:index.html.twig" %}
+
+
+
+
+    {% block javascript_head %}
+    {{ parent() }}
+<script type="text/javascript">
+
+    /**
+     * добавление нового товара
+     **/
+    function setStatus(orderId, orderEntryId, toStatus) {
+
+
+        // проверить параметр orderId
+        if (typeof (orderId) == 'undefined') {
+            console.error("Не указан параметр идентификатор заказа.");
+            return false;
+        }
+
+        // проверить параметр orderEntryId
+        if (typeof (orderEntryId) == 'undefined') {
+            console.error("Не указан параметр идентификатор позиции заказа.");
+            return false;
+        }
+
+        // проверить параметр toStatus
+        if (typeof (toStatus) == 'undefined') {
+            console.error("Не указан параметр название метода нового статуса позиции заказа.");
+            return false;
+        }
+
+        var url = "{{ path('Nitra_TopsBundle_Post_Change_Status_Order_Entry')}}";
+        var fromServer = '';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                orderEntryId: orderEntryId,
+                orderId: orderId,
+                toStatus: toStatus
+            },
+            success: function(jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+
+
+            }
+            ,
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Ошибка при переводе статуса позиции');
+
+            }
+
+
+        }
+        );
+
+    }
+
+
+</script>
+
+{% endblock %}

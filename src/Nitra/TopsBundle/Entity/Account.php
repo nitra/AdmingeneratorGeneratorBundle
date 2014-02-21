@@ -12,8 +12,9 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Account {
-
+class Account
+{
+//
     use ORMBehaviors\Timestampable\Timestampable,
         ORMBehaviors\Blameable\Blameable,
         ORMBehaviors\SoftDeletable\SoftDeletable;
@@ -33,17 +34,27 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
      * @ORM\Column(type="text", nullable=true)
      */
     protected $name;
+    
+     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $requisites;
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-   
     /**
      * Set name
      *
@@ -67,5 +78,27 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
         return $this->name;
     }
 
- 
+
+    /**
+     * Set requisites
+     *
+     * @param string $requisites
+     * @return Account
+     */
+    public function setRequisites($requisites)
+    {
+        $this->requisites = $requisites;
+
+        return $this;
+    }
+
+    /**
+     * Get requisites
+     *
+     * @return string 
+     */
+    public function getRequisites()
+    {
+        return $this->requisites;
+    }
 }

@@ -14,11 +14,11 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  */
 class Income {
 
-    use ORMBehaviors\Timestampable\Timestampable,
-        ORMBehaviors\Blameable\Blameable,
-        ORMBehaviors\SoftDeletable\SoftDeletable;
-
-    use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
+//    use ORMBehaviors\Timestampable\Timestampable,
+//        ORMBehaviors\Blameable\Blameable,
+//        ORMBehaviors\SoftDeletable\SoftDeletable;
+//
+//    use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
 
     /**
      * @var integer
@@ -51,6 +51,24 @@ class Income {
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
+    
+    /**
+     * счет
+     * @ORM\ManyToOne(targetEntity="Account")
+     * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank
+     */
+    protected $account;
+    
+      /**
+     * заказ
+     * @ORM\ManyToOne(targetEntity="Orders")
+     * @ORM\JoinColumn(nullable=true)
+     *
+     * @Assert\NotBlank
+     */
+    protected $orders;
 
     /**
      * Get id
@@ -107,7 +125,7 @@ class Income {
     {
         return $this->amount;
     }
-
+    
     /**
      * Set comment
      *
@@ -129,5 +147,28 @@ class Income {
     public function getComment()
     {
         return $this->comment;
+    }
+    
+    /**
+     * Set account
+     *
+     * @param \Nitra\TopsBundle\Entity\Account $account
+     * @return Income
+     */
+    public function setAccount(\Nitra\TopsBundle\Entity\Account $account)
+    {
+        $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * Get account
+     *
+     * @return \Nitra\TopsBundle\Entity\Account 
+     */
+    public function getAccount()
+    {
+        return $this->account;
     }
 }
