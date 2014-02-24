@@ -10,7 +10,7 @@
     /**
      * добавление нового товара
      **/
-    function setStatus(orderId, orderEntryId, toStatus) {
+    function setOEStatus(orderId, orderEntryId, toStatus) {
 
 
         // проверить параметр orderId
@@ -38,6 +38,48 @@
             url: url,
             data: {
                 orderEntryId: orderEntryId,
+                orderId: orderId,
+                toStatus: toStatus
+            },
+            success: function(jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+
+
+            }
+            ,
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Ошибка при переводе статуса позиции');
+
+            }
+
+
+        }
+        );
+
+    }
+    
+
+    function setStatus(orderId, toStatus) {
+
+
+        // проверить параметр orderId
+        if (typeof (orderId) == 'undefined') {
+            console.error("Не указан параметр идентификатор заказа.");
+            return false;
+        }
+
+        // проверить параметр toStatus
+        if (typeof (toStatus) == 'undefined') {
+            console.error("Не указан параметр название метода нового статуса позиции заказа.");
+            return false;
+        }
+
+        var url = "{{ path('Nitra_TopsBundle_Post_Change_Status_Order')}}";
+        var fromServer = '';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
                 orderId: orderId,
                 toStatus: toStatus
             },
