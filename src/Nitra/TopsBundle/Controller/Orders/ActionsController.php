@@ -25,7 +25,6 @@ class ActionsController extends BaseActionsController
      */
     public function buyerAutocompleteAction()
     {
-//        die('ddd');
         // То что приходит из поля ввода (строка поиска)
         $search_str = $this->getRequest()->get('q');
         $type_search = $this->getRequest()->get('search_by', 'name');
@@ -116,7 +115,9 @@ class ActionsController extends BaseActionsController
 
         $oeId = $this->getRequest()->get('orderEntryId', false);
         $oId = $this->getRequest()->get('orderId', false);
-        $oeToStatus = $this->getRequest()->get('toStatus', false);
+        $toStatus = $this->getRequest()->get('toStatus', false);
+//        var_dump($oeId, $oId, $oeToStatus);
+//        die;
 
         if ($oeId) {
             // получить заказ
@@ -125,21 +126,34 @@ class ActionsController extends BaseActionsController
                 // позиция заказа не найдена, вернуть массив ошибок 
                 return new JsonResponse(array('type' => 'error', 'message' => "Позиция заказа не найдена."));
             }
-            
-            $orderEntry->setStatus($oeToStatus);
-        }
-        // получить заказ
-        $order = $this->em->getRepository('NitraTopsBundle:Orders')->find($oId);
-        if (!$order) {
-            // позиция заказа не найдена, вернуть массив ошибок 
-            return new JsonResponse(array('type' => 'error', 'message' => "Заказ не найден."));
+
+            $orderEntry->setStatus($toStatus);
+        } else {
+            // получить заказ
+            $order = $this->em->getRepository('NitraTopsBundle:Orders')->find($oId);
+            if (!$order) {
+                // позиция заказа не найдена, вернуть массив ошибок 
+                return new JsonResponse(array('type' => 'error', 'message' => "Заказ не найден"));
+            }
+
+            $order->setStatus($toStatus);
         }
         
-                // сохранить
+        // сохранить
         $this->em->flush();
-        
+
         // цепочка выполнена успешно
-        return new JsonResponse(array('type'=> 'success'));
+        return new JsonResponse(array('type' => 'success'));
+    }
+
+    /**
+     * выбор покупателей для автоподсказки
+     * @Route("/change-order-stautus", name="Nitra_TopsBundle_Post_Change_Status_Order")
+     */
+    public function changeOrderStatus()
+    {
+        $return = $this->changeOrderEntryStatus($this->getRequest());
+        return $return;
     }
 
 }

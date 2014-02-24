@@ -17,16 +17,22 @@
               {{ orderEntry.assemblyCost }}
             </td>
             <td>
-
                 <div>
-                       {% set statusArray = {'new':'Новый', 'work':'В работе', 'ready':'Готов'} %}
-                       {% for key,value in statusArray %}
+               {% set statusArray = {'new':'Новый', 'work':'В работе', 'ready':'Готов'} %}
+               {% set status = orderEntry.status %}    
+
+                    <img title="{{ orderEntry.status }}" alt="{{orderEntry.status}}" 
+                         src="{{ asset('bundles/nitratops/images/order_entry_' ~ orderEntry.status ~ '.png') }}" />
+          {% for key,value in statusArray %}
+                     {% if status != key %}
                     <a href="javascript:void(0);"
-                       onclick="setStatus({{Orders.id }}, {{ orderEntry.id }}, '{{ key}}');" >
+                       onclick="setOEStatus({{Orders.id }}, {{ orderEntry.id }}, '{{ key}}');" >
+
                         <img title="{{ value }}" alt="{{value}}" 
                              src="{{ asset('bundles/nitratops/images/order_entry_' ~ key ~ '.png') }}" />
                     </a>
-                       {% endfor %}
+                     {% endif %}
+                {% endfor %}
 
                 </div>
             </td>
