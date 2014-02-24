@@ -1,7 +1,24 @@
 /***********Orders************/
-.form_orders                                { float: right; width: 41%;
-
+.form_orders                                { float: right; width: 36%; padding-left: 20px; border-left: 1px solid #ccc;
+    .form_row                               {
+        .field_content                      { -moz-box-sizing: border-box; box-sizing: border-box; width: 71%; }
+        input[type="text"], input[type="password"], input[type="phone"], input[type="date"], input[type="number"], input[type="email"], input[type="file"], textarea, select { width: 100%; }
+        label                               { width: 140px; padding: 5px 5px 0 0; text-align: left; }
+    }
+    .actions                                { display: block; padding: 0; text-align: right; }
 }
-.order_form                                 { float: left; width: 59%;
-    
+.order_form                                 { float: left; width: 61%; text-align: right;
+    input[type="button"]                    { margin-bottom: 10px; }
+    .table                                  { width: auto; border: none;
+        .data_table                         { width: 100%;
+            input[type="text"], input[type="password"], 
+            input[type="phone"], input[type="date"], 
+            input[type="number"], input[type="email"], 
+            input[type="file"], textarea, select          { width: 84%; }
+            select                          { width: 98%; }
+            .product_info                   { width: 40%; }
+            thead                           { text-align: center; }
+            tbody                           { text-align: left; }
+        }
+    }
 }
