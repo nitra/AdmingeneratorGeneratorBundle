@@ -1,27 +1,26 @@
-<tr iteration="{{ iteration }}" >
-    
+<tr iteration="{{ iteration }}">    
     <td class="product_info" style="width:20%">
         {{ orderEntry.vars.value.getproduction.getName  }}
-       {{ form_errors(orderEntry.production) }}
+        {{ form_errors(orderEntry.production) }}
         {{ form_widget(orderEntry.production) }}
     </td>
-       <td class="">    
-       {{ form_errors(orderEntry.orientation) }}
+    <td class="">    
+        {{ form_errors(orderEntry.orientation) }}
         {{ form_widget(orderEntry.orientation) }}
     </td>
-         <td class="">
-       {{ form_errors(orderEntry.quantity) }}
+    <td class="">
+        {{ form_errors(orderEntry.quantity) }}
         {{ form_widget(orderEntry.quantity) }}
     </td>
-         <td class="">
-       {{ form_errors(orderEntry.price) }}
+    <td class="">
+        {{ form_errors(orderEntry.price) }}
         {{ form_widget(orderEntry.price) }}
     </td>
     <td class="">
-       {{ form_errors(orderEntry.assemblyCost) }}
+        {{ form_errors(orderEntry.assemblyCost) }}
         {{ form_widget(orderEntry.assemblyCost) }}
     </td>
     <td class="delete">
-   <a href="javascript:void(0);" alt="Удалить" onclick="delProductOE(this)">X</a>
+        <a href="javascript:void(0);" alt="Удалить" onclick="delProductOE(this)">X</a>
     </td>
 </tr>

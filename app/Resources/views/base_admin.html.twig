@@ -1,0 +1,8 @@
+{% extends "AdmingeneratorGeneratorBundle::base_admin.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'bundles/nitratops/css/style.less' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}   
+{% endblock %}

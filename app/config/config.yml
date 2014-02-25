@@ -86,7 +86,7 @@ knp_menu:
     default_renderer: twig # The renderer to use, list is also available by default
     
 admingenerator_generator:
-#    base_admin_template: ::base_admin.html.twig
+    base_admin_template: ::base_admin.html.twig
     use_doctrine_orm: true
     stylesheets: []
 #    templates_dirs: [ %kernel.root_dir%/../vendor/nitra/nitra-theme-bundle/Nitra/NitraThemeBundle/Resources/templates ]
