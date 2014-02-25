@@ -1,0 +1,11 @@
+order_edit:
+    product:                        "Товар"
+    orientation:                    "Ориентация"
+    count:                          "Количество"
+    price:                          "Цена"
+    price_all:                      "Цена сборки"
+    add_product:                    "Добавить товар"
+    add_no:                         "Добавить нестандарт"
+    
+order_new:
+    title:                          "Новый заказ"

@@ -1,4 +1,5 @@
 {% extends_admingenerated "NitraTopsBundle:OrdersEdit:form.html.twig" %}
+{% trans_default_domain "NitraTopsBundle" %}
 
 {% block form %}
     <form class="admin_form"
@@ -46,8 +47,8 @@
                 {% block form_buttons %}
                     <div id="edit-actions" class="actions form-actions">
                         {% block form_actions %}
-                            <input type="submit" name="save" class="save btn-success" value="{% trans from "Admingenerator" %}action.generic.save{% endtrans %}" />
-                            <a class="list " href="{{ path("Nitra_TopsBundle_Orders_list") }}">{% trans from "Admingenerator" %}action.generic.list{% endtrans %}</a>
+                            <input type="submit" name="save" class="save btn-success" value="{{ 'action.generic.save'|trans({}, 'Admingenerator') }}" />
+                            <a class="list" href="{{ path("Nitra_TopsBundle_Orders_list") }}">{{ 'action.generic.list'|trans({}, 'Admingenerator') }}</a>
                         {% endblock form_actions %}
                     </div>
                 {% endblock form_buttons %}
@@ -55,16 +56,17 @@
         {% endblock form_fieldset_NONE %}
 
         <div class="order_form">
-            <input type='button' value="Добавить Товар" onclick="addProductOE()"/>
+            <input class="add_product" type='button' value="{{ 'order_edit.add_product'|trans }}" onclick="addProductOE()"/>
+            <input class="add_product" type='button' value="{{ 'order_edit.add_no'|trans }}" onclick=""/>
             <div class="table">
                 <table class="data_table" id="cart_product" data-prototype='{% include "NitraTopsBundle:OrdersEdit:cartProductTrPrototype.html.twig" with {'orderEntryForPrototype':form['orderEntry']} %}' >
                     <thead>
                         <tr>
-                            <th>Товар</th>
-                            <th>Ориентация</th>
-                            <th>Кол-во</th>
-                            <th>Цена</th>
-                            <th>Цена сборки</th>
+                            <th class="product">{{ 'order_edit.product'|trans }}</th>
+                            <th class="orientation">{{ 'order_edit.orientation'|trans }}</th>
+                            <th class="count">{{ 'order_edit.count'|trans }}</th>
+                            <th class="price">{{ 'order_edit.price'|trans }}</th>
+                            <th class="price_all">{{ 'order_edit.price_all'|trans }}</th>
                             <th> </th>
                         </tr>
                     </thead>

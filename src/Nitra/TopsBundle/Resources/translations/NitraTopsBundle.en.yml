@@ -1,0 +1,13 @@
+order_edit:
+    product:                        "Product"
+    orientation:                    "Orientation"
+    count:                          "Count"
+    price:                          "Price"
+    price_all:                      "Price assembly"
+    add_product:                    "Add product"
+    add_no:                         "Add nonstandard"
+    
+order_new:
+    title:                          "Order new"
+    
+    

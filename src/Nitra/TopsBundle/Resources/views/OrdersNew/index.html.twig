@@ -1,11 +1,12 @@
 {% extends "NitraTopsBundle:OrdersEdit:index.html.twig" %}
+{% trans_default_domain "NitraTopsBundle" %}
 
 {% block title %}
-    {% trans from "Admin" %}Новый заказ{% endtrans %}
+    {{ 'order_new.title'|trans }}
 {% endblock title %}
     
 {% block page_title %}
     <header>
-        <h1>{% trans from "Admin" %}Новый заказ{% endtrans %}</h1>
+        <h1>{{ 'order_new.title'|trans }}</h1>
     </header>
 {% endblock page_title %}
