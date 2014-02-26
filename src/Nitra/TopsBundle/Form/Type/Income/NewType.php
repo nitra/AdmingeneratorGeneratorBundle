@@ -25,7 +25,7 @@ class NewType extends BaseNewType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         
-        var_dump('dd');die;
+//        var_dump('dd');die;
 
        
 
