@@ -40,7 +40,7 @@ class OrderEntryType extends AbstractType
                 ->add('assemblyCost')
 
         ;
-        $formOptions = $this->getFormOption('orientation', array('required' => true, 'choices' => array('Правый' => 'Правый', 'Левый' => 'Левый', '' => ''), 'label' => 'Ориентация',));
+        $formOptions = $this->getFormOption('orientation', array('required' => false, 'choices' => array('Правый' => 'Правый', 'Левый' => 'Левый', '' => ''), 'label' => 'Ориентация',));
         $builder->add('orientation', 'choice', $formOptions);
         // поставщик
 //        $builder->add('production', 'entity', array(

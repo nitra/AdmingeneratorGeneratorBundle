@@ -63,7 +63,6 @@ class OrderEntry
      * 
      * @ORM\Column(type="string", length=11)
      * 
-     * @Assert\NotBlank
      * @Assert\Choice(
      *     choices = { "Правый", "Левый", "" },
      *     message = "Неверный параметр")
