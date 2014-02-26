@@ -1,11 +1,12 @@
 <?php
 
 namespace Nitra\TopsBundle\Controller\Orders;
-
+use Nitra\TopsBundle\Entity\Buyer;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nitra\TopsBundle\Form\Type\Orders\NewType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\Form;
+
 use Admingenerated\NitraTopsBundle\BaseOrdersController\NewController as BaseNewController;
 
 /**
@@ -48,17 +49,16 @@ class NewController extends BaseNewController
         $buyer = $this->em->getRepository('NitraTopsBundle:Buyer')->find($formData['buyer_name']['id']);
 
         
-//        var_dump($formData);die;
         // Если пользователь не найден
         if (!$buyer) {
             // покупатель не найден создать нового 
             $buyer = new Buyer();
             $buyer->setName($formData['buyer_name']['name']);
-            $buyer->setAddress($formData["address"]);
+            $buyer->setAddress($formData['address']);
             $buyer->setPhone($formData['buyer_phone']['name']);
             $this->em->persist($buyer);
         }
-        
+         $Orders->setTotal(0);
         // добавить покупателья в заказ
         $Orders->setBuyer($buyer);
         
