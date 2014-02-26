@@ -15,7 +15,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 class Orders
 {
 
-//
 //    use ORMBehaviors\Timestampable\Timestampable,
 //        ORMBehaviors\Blameable\Blameable,
 //        ORMBehaviors\SoftDeletable\SoftDeletable;
@@ -41,18 +40,21 @@ class Orders
      * @ORM\ManyToOne(targetEntity="Buyer")
      * @ORM\JoinColumn(nullable=false)
      *
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Не верно указан покупатель")
      */
     protected $buyer;
 
     /**
      * @ORM\Column(type="decimal", scale=2)
-     *
-     * @Assert\NotBlank
-     * @Assert\Range(min = "0.01")
+     * @Assert\Range(min = "0")
      */
-    protected $amount;
+    protected $total;
 
+        /**
+     * @ORM\Column(type="decimal", scale=2)
+     * @Assert\Range(min = "0")
+     */
+    protected $payed;
     /**
      * @ORM\Column(type="decimal", scale=2)
      *
@@ -73,7 +75,7 @@ class Orders
      *
      * @ORM\Column(type="date")
      * 
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Не верно указана дата изготовления")
      * @Assert\Date
      */
     private $madeAt;
@@ -83,7 +85,7 @@ class Orders
      *
      * @ORM\Column(type="date")
      * 
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Не верно указана дата доставки")
      * @Assert\Date
      */
     private $deliveryDate;
@@ -102,24 +104,35 @@ class Orders
      * 
      * @Assert\NotBlank
      * @Assert\Choice(
-     *     choices = { "Новий", "Відправлено", "Отримано" },
+     *     choices = { "Новый", "В работе", "Готов" },
      *     message = "Неверный статус")
      */
     protected $status;
 
     /**
-     * @ORM\Column(type="decimal", scale=2)
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
      *
-     * @Assert\NotBlank
      */
     private $repairedCost;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      *
-     * @Assert\NotBlank
      */
     private $repairedComment;
+
+    public function __toString()
+    {
+        return (string) $this->getId();
+    }
+
+    /**
+     * осталось оплатить
+     */
+//    public function getPayedLeft()
+//    {
+//        return $this->getTotal() - $this->getPayed();
+//    }
 
     /**
      * Get id
@@ -354,6 +367,55 @@ class Orders
     public function getOrderEntry()
     {
         return $this->orderEntry;
+    }
+
+    /**
+     * Set repairedCost
+     *
+     * @param string $repairedCost
+     * @return Orders
+     */
+    public function setRepairedCost($repairedCost)
+    {
+        $this->repairedCost = $repairedCost;
+
+        return $this;
+    }
+
+    /**
+     * Get repairedCost
+     *
+     * @return string 
+     */
+    public function getRepairedCost()
+    {
+        return $this->repairedCost;
+    }
+
+    /**
+     * Set repairedComment
+     *
+     * @param string $repairedComment
+     * @return Orders
+     */
+    public function setRepairedComment($repairedComment)
+    {
+        $this->repairedComment = $repairedComment;
+
+        return $this;
+    }
+
+    /**
+     * Get repairedComment
+     *
+     * @return string 
+     */
+    public function getRepairedComment()
+    {
+        if ($this->repairedComment || $this->getRepairedCost()) {
+            return $this->repairedComment . ' (' . $this->getRepairedCost() . ' грн.)';
+        }
+        return;
     }
 
 }

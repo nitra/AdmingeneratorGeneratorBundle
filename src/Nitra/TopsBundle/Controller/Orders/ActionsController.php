@@ -2,13 +2,19 @@
 
 namespace Nitra\TopsBundle\Controller\Orders;
 
+use Nitra\TopsBundle\Entity\Orders;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admingenerated\NitraTopsBundle\BaseOrdersController\ActionsController as BaseActionsController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use JMS\DiExtraBundle\Annotation as DI;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Nitra\TopsBundle\Entity\Income;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+
+use Nitra\TopsBundle\Form\Type\Income\NewType as addIncome;
 
 /**
  * ActionsController
@@ -107,7 +113,7 @@ class ActionsController extends BaseActionsController
     }
 
     /**
-     * выбор покупателей для автоподсказки
+     * выбор покупателей для автоподсказки       
      * @Route("/change-orderEntry-stautus", name="Nitra_TopsBundle_Post_Change_Status_Order_Entry")
      */
     public function changeOrderEntryStatus()
@@ -138,7 +144,7 @@ class ActionsController extends BaseActionsController
 
             $order->setStatus($toStatus);
         }
-        
+
         // сохранить
         $this->em->flush();
 
@@ -156,4 +162,42 @@ class ActionsController extends BaseActionsController
         return $return;
     }
 
+    /**
+     * принятие средств
+     * @Route("/{pk}-income-add", name="Nitra_TopsBundle_Orders_AddIncome")
+     * @ParamConverter("orders", class="NitraTopsBundle:Orders", options={"id" = "pk"})
+     * @Template("NitraTopsBundle:OrdersActions:ordersIncome.html.twig")
+     */
+    public function acceptPayment(Orders $orders, Request $request)
+    {
+//        var_dump(get_class($this->em));
+//        die('dd');
+  
+        $income = new Income();
+        $income->setOrders($orders);
+        $income->setAmount($orders->getPayedLeft());
+        $income->setAccount($this->em->getRepository('NitraTopsBundle:Account')->findOneBy(array()));
+//        var_dump($income->getOrders()->getId());die;
+//        //  s
+        $form = $this->createForm(new addIncome(), $income, array(
+            'em' => $this->em,
+//            'session' => $this->get('session'),
+//            'manager' => $user,
+        ));
+
+        
+die('ww');
+        return array(
+            "Orders" => $orders,
+
+        );
+    }
+
+//
+//    /**                    Запланировать дату отгрузки
+//     * @Route("/{pk}-toPlan", name="Nitra_ErpLuganskBundle_Order_ToPlan")
+//     * @ParamConverter("orders", class="NitraErpLuganskBundle:Orders", options={"id" = "pk"})
+//     * @Template("NitraErpLuganskBundle:OrdersActions:toPlan.html.twig")
+//     */
+// 
 }
