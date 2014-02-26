@@ -76,6 +76,7 @@ class NewController extends BaseNewController
             // проверить если новая позиция для заказа
             if (!$this->em->contains($orderEntry)) {
                 // persist $orderEntry
+                $orderEntry->setStatus('new');
                 $orderEntry->setOrder($Orders);
                 $this->em->persist($orderEntry);
             }

@@ -89,6 +89,7 @@ class EditController extends BaseEditController
             if (!$this->em->contains($orderEntry)) {
                 // persist $orderEntry
                 $orderEntry->setOrder($Orders);
+                $orderEntry->setStatus('new');
                 $this->em->persist($orderEntry);
             }
             // Отсеиваем позиции, которые пришли в посте
