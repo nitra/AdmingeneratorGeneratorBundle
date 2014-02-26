@@ -1,103 +1,91 @@
 {% extends_admingenerated "NitraTopsBundle:OrdersList:row.html.twig" %}
 
-
-
 {% block list_row %}
-<tr class="list_trow">{% block list_row_content %}
-    <td class="td_integer td_id">
-              {% block list_td_column_id %}{{ Orders.id }}{% endblock list_td_column_id %}
-    </td>
-    <td class="td_entity td_buyer">
-              {% block list_td_column_buyer %}{{ Orders.buyer }}{% endblock list_td_column_buyer %}
-    </td>
-    <td class="td_collection td_orderEntry">
-
-    {% block list_td_column_orderEntry %}
-    {% include "NitraTopsBundle:OrdersList:row.column.orderEntry.html.twig" %}
-    {% endblock list_td_column_orderEntry %}
-    </td>
-        <td class="td_virtual td_amount">
-            {% include "NitraTopsBundle:OrdersList:row.column.amount.html.twig" with { } %}
-        </td>
-    <td class="td_text td_address">
-              {% block list_td_column_address %}{{ Orders.address }}{% endblock list_td_column_address %}
-    </td>
-    <td class="td_date td_madeAt">
-              {% block list_td_column_madeAt %}{% if Orders.madeAt %}{% set localized_date_format = "medium" %}{% set date_format = "d-M-Y" %}{{ Orders.madeAt|localizeddate(localized_date_format, "none", null, null, date_format) }}
-    {% endif %}{% endblock list_td_column_madeAt %}
-    </td>
-    <td class="td_date td_deliveryDate">
-              {% block list_td_column_deliveryDate %}{% if Orders.deliveryDate %}{% set localized_date_format = "medium" %}{% set date_format = "d-M-Y" %}{{ Orders.deliveryDate|localizeddate(localized_date_format, "none", null, null, date_format) }}
-    {% endif %}{% endblock list_td_column_deliveryDate %}
-    </td>
-    <td class="td_decimal td_deliveryCost">
-              {% block list_td_column_deliveryCost %}{{ Orders.deliveryCost|number_format }}{% endblock list_td_column_deliveryCost %}
-    </td>
-    <td class="td_text td_comment">
-              {% block list_td_column_comment %}{{ Orders.comment }}{% endblock list_td_column_comment %}
-    </td>
-    <td class="td_text td_repairedComment">
-              {% block list_td_column_repairedComment %}{{ Orders.repairedComment }}{% endblock list_td_column_repairedComment %}
-    </td>
-    <td class="td_string td_status">
-            {% block list_td_column_status %}
-
-    {% set statusArray = {'Новый':'new','Обработано':  'process', 'Подготовка документов':'pre_document', 'Передано на производство':'to_work','В работе':'work', 'Готов':'ready', 'Отгружено':'shipped'} %}
-
-{#    {% set statusArray = {'new':'Новый', 'process':'Обработано', 'pre_document':'Подготовка документов', 'to_work':'Передано на производство','work':'В работе', 'ready':'Готов', 'shipped':'Отгружено'} %}#}
-    {% set status = Orders.status %}   
-
-        <img title="{{ status }}" alt="{{status}}" 
-             src="{{ asset('bundles/nitratops/images/order_' ~ statusArray[status] ~ '.png') }}" />
-
-
-        <div>
-    {% for key,value in statusArray %}
-       {% if status != key %}
-            <a href="javascript:void(0);"
-               onclick="setStatus({{Orders.id }}, '{{ key}}');" >
-                <img title="{{ key }}" alt="{{key}}" 
-                     src="{{ asset('bundles/nitratops/images/order_' ~ value ~ '.png') }}" />
-            </a>
-        {% endif %}
-    {% endfor %}
-        </div>
-{% endblock list_td_column_status %}
-
-    </td>
+    <tr class="list_trow">
+        {% block list_row_content %}
+            <td class="td_integer td_id">
+                {% block list_td_column_id %}{{ Orders.id }}{% endblock list_td_column_id %}
+            </td>
+            <td class="td_entity td_buyer">
+                {% block list_td_column_buyer %}{{ Orders.buyer }}{% endblock list_td_column_buyer %}
+            </td>
+            <td class="td_collection td_orderEntry">
+                {% block list_td_column_orderEntry %}
+                    {% include "NitraTopsBundle:OrdersList:row.column.orderEntry.html.twig" %}
+                {% endblock list_td_column_orderEntry %}
+            </td>
+            <td class="td_virtual td_amount">
+                {% include "NitraTopsBundle:OrdersList:row.column.amount.html.twig" with { } %}
+            </td>
+            <td class="td_text td_address">
+                {% block list_td_column_address %}{{ Orders.address }}{% endblock list_td_column_address %}
+            </td>
+            <td class="td_date td_madeAt">
+                {% block list_td_column_madeAt %}
+                    {% if Orders.madeAt %}
+                        {% set localized_date_format = "medium" %}
+                        {% set date_format = "d-M-Y" %}{{ Orders.madeAt|localizeddate(localized_date_format, "none", null, null, date_format) }}
+                    {% endif %}
+                {% endblock list_td_column_madeAt %}
+            </td>
+            <td class="td_date td_deliveryDate">
+                {% block list_td_column_deliveryDate %}
+                    {% if Orders.deliveryDate %}    
+                        {% set localized_date_format = "medium" %}
+                        {% set date_format = "d-M-Y" %}{{ Orders.deliveryDate|localizeddate(localized_date_format, "none", null, null, date_format) }}
+                    {% endif %}
+                {% endblock list_td_column_deliveryDate %}
+            </td>
+            <td class="td_decimal td_deliveryCost">
+                {% block list_td_column_deliveryCost %}{{ Orders.deliveryCost|number_format }}{% endblock list_td_column_deliveryCost %}
+            </td>
+            <td class="td_text td_comment">
+                {% block list_td_column_comment %}{{ Orders.comment }}{% endblock list_td_column_comment %}
+            </td>
+            <td class="td_text td_repairedComment">
+                {% block list_td_column_repairedComment %}{{ Orders.repairedComment }}{% endblock list_td_column_repairedComment %}
+            </td>
+            <td class="td_string td_status" style="white-space: nowrap;">
+                {% block list_td_column_status %}
+                    {% set statusArray = {'Новый':'new','Обработано':  'process', 'Подготовка документов':'pre_document', 'Передано на производство':'to_work','В работе':'work', 'Готов':'ready', 'Отгружено':'shipped'} %}
+                {#    {% set statusArray = {'new':'Новый', 'process':'Обработано', 'pre_document':'Подготовка документов', 'to_work':'Передано на производство','work':'В работе', 'ready':'Готов', 'shipped':'Отгружено'} %}#}
+                    {% set status = Orders.status %}   
+                    <img title="{{ status }}" alt="{{status}}" src="{{ asset('bundles/nitratops/images/order_' ~ statusArray[status] ~ '.png') }}" />
+                    <div class="popup">
+                        <div class="order_list_statuses">
+                            {% for key,value in statusArray %}
+                               {% if status != key %}
+                                    <a href="javascript:void(0);" onclick="setStatus({{Orders.id }}, '{{ key}}');" >
+                                        <img title="{{ key }}" alt="{{key}}" src="{{ asset('bundles/nitratops/images/order_' ~ value ~ '.png') }}" />
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endblock list_td_column_status %}
+            </td>
         {% endblock list_row_content %}
-    {% block object_actions %}
-    <td class="object_actions actions">
-                            {% block td_list_object_actions_edit %}
-
-
-    {% spaceless %}
-        <a  class="edit " href="{{ path("Nitra_TopsBundle_Orders_edit", { pk: Orders.id }) }}" 
-            title="{% trans from "Admingenerator" %}action.object.edit.label{% endtrans %}"></a>
-    {% endspaceless %}
-
-                                        {% endblock td_list_object_actions_edit %}
-                            {% block td_list_object_actions_delete %}
-
-
-    {% spaceless %}
-        <a  class="delete " href="{{ path("Nitra_TopsBundle_Orders_object", { pk: Orders.id, action: 'delete' }) }}" 
-            title="{% trans from "Admingenerator" %}action.object.delete.label{% endtrans %}" data-confirm="{% trans from "Admingenerator" %}action.object.delete.confirm{% endtrans %}"  data-csrf-token="{{ path("Nitra_TopsBundle_Orders_object", { pk: Orders.id, action: 'delete' })|csrf_token }}" ></a>
-    {% endspaceless %}
-
-                                        {% endblock td_list_object_actions_delete %}
-                            {% block td_list_object_actions_income %}
-
-
-    {% spaceless %}
-        <a  class="income colorbox" href="{{ path("Nitra_TopsBundle_Orders_AddIncome", { 'pk': Orders.id, action: 'income' }) }}" 
-            title="{% trans from "Admin" %}Принять деньги{% endtrans %}"></a>
-    {% endspaceless %}
-
-                                        {% endblock td_list_object_actions_income %}
-                        {% block td_list_object_actions_customActions %}{% endblock td_list_object_actions_customActions %}
-    </td>
+        {% block object_actions %}
+            <td class="object_actions actions">
+                {% block td_list_object_actions_edit %}
+                    {% spaceless %}
+                        <a  class="edit " href="{{ path("Nitra_TopsBundle_Orders_edit", { pk: Orders.id }) }}" title="{% trans from "Admingenerator" %}action.object.edit.label{% endtrans %}"></a>
+                    {% endspaceless %}
+                {% endblock td_list_object_actions_edit %}
+                {% block td_list_object_actions_delete %}
+                    {% spaceless %}
+                        <a  class="delete " href="{{ path("Nitra_TopsBundle_Orders_object", { pk: Orders.id, action: 'delete' }) }}" title="{% trans from "Admingenerator" %}action.object.delete.label{% endtrans %}" data-confirm="{% trans from "Admingenerator" %}action.object.delete.confirm{% endtrans %}"  data-csrf-token="{{ path("Nitra_TopsBundle_Orders_object", { pk: Orders.id, action: 'delete' })|csrf_token }}" ></a>
+                    {% endspaceless %}
+                {% endblock td_list_object_actions_delete %}
+                {% block td_list_object_actions_income %}
+                    {% spaceless %}
+                        <a  class="income colorbox" href="{{ path("Nitra_TopsBundle_Orders_AddIncome", { 'pk': Orders.id, action: 'income' }) }}" 
+                            title="{% trans from "Admin" %}Принять деньги{% endtrans %}"></a>
+                    {% endspaceless %}
+                {% endblock td_list_object_actions_income %}
+                {% block td_list_object_actions_customActions %}
+                {% endblock td_list_object_actions_customActions %}
+            </td>
         {% endblock object_actions %}
-
-</tr>
+    </tr>
 {% endblock list_row %}
