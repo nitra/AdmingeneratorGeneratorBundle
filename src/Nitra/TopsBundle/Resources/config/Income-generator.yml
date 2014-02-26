@@ -33,7 +33,7 @@ builders:
     new:
         params:
             title: Создание поступления
-            display: [date, amount,orders, account, comment]
+            display: [date, amount, account, comment]
             actions:
                 save: ~
                 list: ~

@@ -50,11 +50,7 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
      */
     protected $total;
 
-    /**
-     * @ORM\Column(type="decimal", scale=2)
-     * @Assert\Range(min = "0")
-     */
-    protected $payed;
+
 
     /**
      * @ORM\Column(type="decimal", scale=2)
@@ -121,6 +117,12 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
      *
      */
     private $repairedComment;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Nitra\TopsBundle\Entity\Income", mappedBy="orders")
+     */
+    private $incomes;
+    
 
     public function __toString()
     {
@@ -435,26 +437,16 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     }
 
     /**
-     * Set payed
-     *
-     * @param string $payed
-     * @return Orders
-     */
-    public function setPayed($payed)
-    {
-        $this->payed = $payed;
-
-        return $this;
-    }
-
-    /**
-     * Get payed
-     *
-     * @return string 
+     *  Метод расчета оплаченной суммы по заказу
      */
     public function getPayed()
     {
-        return $this->payed;
+        $left = 0;
+        foreach ($this->incomes AS $income) {
+            $left += $income->getAmount();
+        }
+
+        return $left;
     }
 
     /**
@@ -463,5 +455,39 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     public function getPayedLeft()
     {
         return $this->getTotal() - $this->getPayed();
+    }
+
+
+    /**
+     * Add incomes
+     *
+     * @param \Nitra\TopsBundle\Entity\Income $incomes
+     * @return Orders
+     */
+    public function addIncome(\Nitra\TopsBundle\Entity\Income $incomes)
+    {
+        $this->incomes[] = $incomes;
+
+        return $this;
+    }
+
+    /**
+     * Remove incomes
+     *
+     * @param \Nitra\TopsBundle\Entity\Income $incomes
+     */
+    public function removeIncome(\Nitra\TopsBundle\Entity\Income $incomes)
+    {
+        $this->incomes->removeElement($incomes);
+    }
+
+    /**
+     * Get incomes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIncomes()
+    {
+        return $this->incomes;
     }
 }

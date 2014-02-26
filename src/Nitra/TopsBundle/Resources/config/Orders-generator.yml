@@ -35,7 +35,7 @@ builders:
     list:
         params:
             title: Список заказов
-            display: [id, buyer, orderEntry, total, payed, address, madeAt, deliveryDate, deliveryCost, comment, repairedComment, status ] 
+            display: [id, buyer, orderEntry, amount, address, madeAt, deliveryDate, deliveryCost, comment, repairedComment, status ] 
             actions:
                 new: ~
             object_actions:

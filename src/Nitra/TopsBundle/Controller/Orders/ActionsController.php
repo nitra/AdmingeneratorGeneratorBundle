@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Nitra\TopsBundle\Entity\Income;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
 use Nitra\TopsBundle\Form\Type\Income\NewType as addIncome;
 
 /**
@@ -172,24 +171,45 @@ class ActionsController extends BaseActionsController
     {
 //        var_dump(get_class($this->em));
 //        die('dd');
-  
+        $formIsValid = false;
         $income = new Income();
         $income->setOrders($orders);
         $income->setAmount($orders->getPayedLeft());
         $income->setAccount($this->em->getRepository('NitraTopsBundle:Account')->findOneBy(array()));
-//        var_dump($income->getOrders()->getId());die;
-//        //  s
+
         $form = $this->createForm(new addIncome(), $income, array(
             'em' => $this->em,
 //            'session' => $this->get('session'),
 //            'manager' => $user,
         ));
 
-        
-die('ww');
+        if ($request->getMethod() == 'POST') {
+            // заполнить форму 
+            $form->submit($request);
+
+            // валидация формы
+            if ($form->isValid()) {
+                try {
+                    // сохранить 
+                    $this->em->persist($income);
+                    $this->em->flush();
+
+                    // форма отработала успешно
+                    $formIsValid = true;
+                } catch (\Exception $e) {
+                    $form->addError(new FormError($e->getMessage()));
+                }
+            } else {
+                // отображение ошибки валидации формы
+                $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans("action.object.edit.error", array(), 'Admingenerator'));
+            }
+        }
+
+        // вернуть массив данных передаваемых в шаблон 
         return array(
             "Orders" => $orders,
-
+            "form" => $form->createView(),
+            "formIsValid" => $formIsValid,
         );
     }
 
