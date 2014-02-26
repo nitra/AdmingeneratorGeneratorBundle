@@ -15,7 +15,6 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 class Orders
 {
 
-
     use ORMBehaviors\Timestampable\Timestampable,
         ORMBehaviors\Blameable\Blameable,
         ORMBehaviors\SoftDeletable\SoftDeletable;
@@ -47,11 +46,15 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
 
     /**
      * @ORM\Column(type="decimal", scale=2)
-     *
-     * @Assert\NotBlank(message="Не верно указана оплата")
-     * @Assert\Range(min = "0.01")
+     * @Assert\Range(min = "0")
      */
-    protected $amount;
+    protected $total;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2)
+     * @Assert\Range(min = "0")
+     */
+    protected $payed;
 
     /**
      * @ORM\Column(type="decimal", scale=2)
@@ -118,6 +121,11 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
      *
      */
     private $repairedComment;
+
+    public function __toString()
+    {
+        return (string) $this->getId();
+    }
 
     /**
      * Get id
@@ -354,7 +362,6 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
         return $this->orderEntry;
     }
 
-
     /**
      * Set repairedCost
      *
@@ -398,9 +405,63 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
      */
     public function getRepairedComment()
     {
-        if($this->repairedComment ||$this->getRepairedCost() ){
-        return $this->repairedComment . ' ('.$this->getRepairedCost() .' грн.)';
+        if ($this->repairedComment || $this->getRepairedCost()) {
+            return $this->repairedComment . ' (' . $this->getRepairedCost() . ' грн.)';
         }
-        return ;
+        return;
+    }
+
+    /**
+     * Set total
+     *
+     * @param string $total
+     * @return Orders
+     */
+    public function setTotal($total)
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    /**
+     * Get total
+     *
+     * @return string 
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * Set payed
+     *
+     * @param string $payed
+     * @return Orders
+     */
+    public function setPayed($payed)
+    {
+        $this->payed = $payed;
+
+        return $this;
+    }
+
+    /**
+     * Get payed
+     *
+     * @return string 
+     */
+    public function getPayed()
+    {
+        return $this->payed;
+    }
+
+    /**
+     * осталось оплатить
+     */
+    public function getPayedLeft()
+    {
+        return $this->getTotal() - $this->getPayed();
     }
 }

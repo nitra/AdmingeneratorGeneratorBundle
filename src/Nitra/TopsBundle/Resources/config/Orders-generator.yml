@@ -35,26 +35,27 @@ builders:
     list:
         params:
             title: Список заказов
-            display: [id, buyer, orderEntry, amount, address, madeAt, deliveryDate, deliveryCost, comment, repairedComment, status ] 
+            display: [id, buyer, orderEntry, total, payed, address, madeAt, deliveryDate, deliveryCost, comment, repairedComment, status ] 
             actions:
                 new: ~
             object_actions:
                 edit: ~
                 delete: ~
+                income:           { label: "Принять деньги" }
     filters:
         params:
             display:  [status,buyer, address ,madeAt, deliveryDate,comment  ] 
     new:
         params:
             title: New object for TopsBundle
-            display: [status,buyer, amount,address ,madeAt, deliveryDate, deliveryCost,comment  ] 
+            display: [status,buyer, address ,madeAt, deliveryDate, deliveryCost,comment  ] 
             actions:
                 save: ~
                 list: ~
     edit:
         params:
             title: "Редактирование заказа \"%object%\"|{ %object%: Orders.id }|"
-            display: [status, amount,address ,madeAt, deliveryDate, deliveryCost,comment  ] 
+            display: [status, address ,madeAt, deliveryDate, deliveryCost,comment  ] 
             actions:
                 save: ~
                 list: ~
