@@ -6,6 +6,17 @@
 
 <script type="text/javascript">
 
+
+
+    function addProductNameOE() {
+        // получаем данные которые будут добавляться при сосздании новой позиции 
+        var prototype = $('#cart_product').data('prototype');
+        console.log(prototype);
+        var index = getProductsCounter();
+{#        var newForm = prototype.replace(/__name__/g, index).replace(/__iteration__/g, (index + 1).replace('class="product_no_standart" style="display: none"', 'class="product_no_standart"').replace('class="product_standart"', 'class="product_standart" style="display: none"');#}
+        var newForm = prototype.replace(/__name__/g, index).replace(/__iteration__/g, (index + 1)).replace('class="product_no_standart" style="display: none"', 'class="product_no_standart"').replace('class="product_standart"', 'class="product_standart" style="display: none"').replace('required="required"','');
+        $(newForm).insertAfter($("tr:first"));
+    }
     /**
      * добавление нового товара
      **/
@@ -14,6 +25,7 @@
 
         // получаем данные которые будут добавляться при сосздании новой позиции 
         var prototype = $('#cart_product').data('prototype');
+        console.log(prototype);
         var index = getProductsCounter();
         var newForm = prototype.replace(/__name__/g, index).replace(/__iteration__/g, (index + 1));
         $(newForm).insertAfter($("tr:first"));

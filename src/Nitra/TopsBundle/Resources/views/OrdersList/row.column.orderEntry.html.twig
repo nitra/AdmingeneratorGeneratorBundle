@@ -1,28 +1,35 @@
 {% for orderEntry in Orders.OrderEntry %}
-    <div style="background-color: #F7F7F7; padding: 3px;">
-        <table>
-            <tr>
-                <td>{{orderEntry.production.name}}</td>
-                <td>{{orderEntry.orientation}}</td>
-                <td>{{ orderEntry.quantity == 1 ? orderEntry.price : orderEntry.quantity ~ 'x' ~ orderEntry.price  }}</td>
-                <td>{{ orderEntry.assemblyCost }}</td>
-                <td style="white-space: nowrap;"> 
-                    <img title="{{ orderEntry.status }}" alt="{{orderEntry.status}}" src="{{ asset('bundles/nitratops/images/order_entry_' ~ orderEntry.status ~ '.png') }}" />
-                    <div class="popup">
-                        <div class="order_entry_list_statuses">
+<div style="background-color: #F7F7F7; padding: 3px;">
+    <table>
+        <tr>
+            <td>
+             {% if orderEntry.production %}
+               {{orderEntry.production.name}}
+              {% else %}
+               {{orderEntry.productName}}
+              {% endif %}
+
+            </td>
+            <td>{{orderEntry.orientation}}</td>
+            <td>{{ orderEntry.quantity == 1 ? orderEntry.price : orderEntry.quantity ~ 'x' ~ orderEntry.price  }}</td>
+            <td>{{ orderEntry.assemblyCost }}</td>
+            <td style="white-space: nowrap;"> 
+                <img title="{{ orderEntry.status }}" alt="{{orderEntry.status}}" src="{{ asset('bundles/nitratops/images/order_entry_' ~ orderEntry.status ~ '.png') }}" />
+                <div class="popup">
+                    <div class="order_entry_list_statuses">
                             {% set statusArray = {'new':'Новый', 'work':'В работе', 'ready':'Готов'} %}
                             {% set status = orderEntry.status %} 
                                 {% for key,value in statusArray %}
                                     {% if status != key %}
-                                        <a href="javascript:void(0);" onclick="setOEStatus({{Orders.id }}, {{ orderEntry.id }}, '{{ key}}');" >
-                                            <img title="{{ value }}" alt="{{value}}" src="{{ asset('bundles/nitratops/images/order_entry_' ~ key ~ '.png') }}" />
-                                        </a>
+                        <a href="javascript:void(0);" onclick="setOEStatus({{Orders.id }}, {{ orderEntry.id }}, '{{ key}}');" >
+                            <img title="{{ value }}" alt="{{value}}" src="{{ asset('bundles/nitratops/images/order_entry_' ~ key ~ '.png') }}" />
+                        </a>
                                     {% endif %}
                                 {% endfor %}
-                        </div>
                     </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 {% endfor %}

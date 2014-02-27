@@ -1,6 +1,15 @@
 <tr iteration="{{ iteration }}">    
     <td class="product_info" style="width:20%">
+        {% if orderEntry.vars.value.getproduction %}
+        <div style="display: none;">
+        {{ form_errors(orderEntry.productName) }}
+        {{ form_widget(orderEntry.productName) }}
+        </div>
         {{ orderEntry.vars.value.getproduction.getName  }}
+        {% else %}
+        {{ form_errors(orderEntry.productName) }}
+        {{ form_widget(orderEntry.productName) }}
+        {% endif %}
         {{ form_errors(orderEntry.production) }}
         {{ form_widget(orderEntry.production) }}
     </td>

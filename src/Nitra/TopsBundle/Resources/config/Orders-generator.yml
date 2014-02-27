@@ -43,14 +43,14 @@ builders:
     new:
         params:
             title: New object for TopsBundle
-            display: [status,buyer, address ,madeAt, deliveryDate, deliveryCost,comment  ] 
+            display: [buyer, address ,madeAt, deliveryDate, deliveryCost,comment  ] 
             actions:
                 save: ~
                 list: ~
     edit:
         params:
             title: "Редактирование заказа \"%object%\"|{ %object%: Orders.id }|"
-            display: [status, address ,madeAt, deliveryDate, deliveryCost,comment  ] 
+            display: [ address ,madeAt, deliveryDate, deliveryCost,comment  ] 
             actions:
                 save: ~
                 list: ~

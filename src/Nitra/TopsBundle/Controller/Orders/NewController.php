@@ -59,6 +59,7 @@ class NewController extends BaseNewController
             $this->em->persist($buyer);
         }
          $Orders->setTotal(0);
+         $Orders->setStatus('Новый');
         // добавить покупателья в заказ
         $Orders->setBuyer($buyer);
         
@@ -83,7 +84,6 @@ class NewController extends BaseNewController
             
         }
 
-//        die('!!!');
     }
 
 }

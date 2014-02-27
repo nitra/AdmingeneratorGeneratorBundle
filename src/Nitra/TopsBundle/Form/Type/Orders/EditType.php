@@ -44,12 +44,13 @@ class EditType extends BaseEditType
         $builder->add('orderEntry', 'collection', array(
             'type' => new OrderEntryType($this->em),
             'allow_add' => true,
+             'label' => ' ',
             'allow_delete' => true,
             'prototype' => true,
             'by_reference' => false
         ));
 
-
+//        $builder->add('product_no_standart','text', array('mapped' => false, 'required' => false, 'label' => ' ',));
         // проверить связь с объектом заказа в базе
         if ($options['data']->getId()) {
             // автокомплит объект полкупателя

@@ -99,7 +99,6 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
      * 
      * @ORM\Column(type="string", length=11)
      * 
-     * @Assert\NotBlank
      * @Assert\Choice(
      *     choices = { "Новый", "В работе", "Готов" },
      *     message = "Неверный статус")

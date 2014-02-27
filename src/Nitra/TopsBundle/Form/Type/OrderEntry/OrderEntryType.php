@@ -38,6 +38,7 @@ class OrderEntryType extends AbstractType
                 ->add('quantity', 'text', array('attr' => array('class' => 'quantity')))
                 ->add('price')
                 ->add('assemblyCost')
+                ->add('productName', 'text', array('required' => false, 'label' => ' ',));
 
         ;
         $formOptions = $this->getFormOption('orientation', array('required' => false, 'choices' => array('Правый' => 'Правый', 'Левый' => 'Левый', '' => ''), 'label' => 'Ориентация',));
@@ -49,7 +50,6 @@ class OrderEntryType extends AbstractType
 //            'property' => 'name',
 //            'mapped' => true
 //        ));
-
 //         установить трансформер для склада позиции
         $builder->add(
                 $builder->create('production', 'hidden', array('required' => true, 'attr' => array('class' => 'order_entry_production')))

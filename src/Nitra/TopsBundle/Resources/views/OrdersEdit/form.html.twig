@@ -12,9 +12,6 @@
         {{ form_errors(form) }}
         {% block form_fieldset_NONE %}
             <fieldset class="form_block form_fieldset_NONE fieldset_tabbable form_orders">
-                {% block form_status %}
-                    {{ form_row(form['status']) }}
-                {% endblock form_status %}
         <fieldset class="form_block form_fieldset_buyer dubble_column_rows">
                 {{ form_row(form.buyer_name) }}
                 {{ form_errors(form.buyer_phone) }}    
@@ -54,7 +51,7 @@
 
         <div class="order_form">
             <input class="add_product" type='button' value="{{ 'order_edit.add_product'|trans }}" onclick="addProductOE()"/>
-            <input class="add_product" type='button' value="{{ 'order_edit.add_no'|trans }}" onclick=""/>
+            <input class="add_product" type='button' value="{{ 'order_edit.add_no'|trans }}" onclick="addProductNameOE()"/>
             <div class="table">
                 <table class="data_table" id="cart_product" data-prototype='{% include "NitraTopsBundle:OrdersEdit:cartProductTrPrototype.html.twig" with {'orderEntryForPrototype':form['orderEntry']} %}' >
                     <thead>

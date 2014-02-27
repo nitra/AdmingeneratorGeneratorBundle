@@ -2,7 +2,6 @@
 
 namespace Nitra\TopsBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
@@ -15,12 +14,12 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  */
 class OrderEntry
 {
-    
-        use ORMBehaviors\Timestampable\Timestampable,
+
+    use ORMBehaviors\Timestampable\Timestampable,
         ORMBehaviors\Blameable\Blameable,
         ORMBehaviors\SoftDeletable\SoftDeletable;
 
-    use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
+use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
 
     /**
      * @var integer
@@ -37,9 +36,6 @@ class OrderEntry
      * @Assert\NotBlank()
      */
     private $order;
-
-
-
 
     /**
      * @var integer
@@ -58,24 +54,31 @@ class OrderEntry
      */
     protected $production;
 
-        /**
+    /**
+     * нестандартный товар
+     * @ORM\Column(type="text", nullable=true)
+         */
+    protected $productName;
+
+    /**
      * @var string $orientation 
      * 
-     * @ORM\Column(type="string", length=11)
+     * @ORM\Column(type="string", length=11,nullable=true, options={"default" = ""})
      * 
      * @Assert\Choice(
      *     choices = { "Правый", "Левый", "" },
      *     message = "Неверный параметр")
      */
     protected $orientation;
+
     /**
      * @ORM\Column(type="integer")
      *
      * @Assert\NotBlank
      */
     private $price;
-    
-        /**
+
+    /**
      * Стоимость доставки
      * @var  $assembly_cost
      * 
@@ -90,17 +93,16 @@ class OrderEntry
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
-    
-     /**
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $status;
-    
-      /**
+
+    /**
      * @ORM\ManyToMany(targetEntity="Colors")
      * @ORM\JoinTable(name="orderEntry_colors")
      */
-
     protected $color;
 
     /**
@@ -112,7 +114,6 @@ class OrderEntry
     {
         return $this->id;
     }
-
 
     /**
      * Set orientation
@@ -297,7 +298,7 @@ class OrderEntry
     {
         return $this->production;
     }
-  
+
     /**
      * Constructor
      */
@@ -373,5 +374,29 @@ class OrderEntry
     public function getAssemblyCost()
     {
         return $this->assemblyCost;
+    }
+
+
+    /**
+     * Set productName
+     *
+     * @param string $productName
+     * @return OrderEntry
+     */
+    public function setProductName($productName)
+    {
+        $this->productName = $productName;
+
+        return $this;
+    }
+
+    /**
+     * Get productName
+     *
+     * @return string 
+     */
+    public function getProductName()
+    {
+        return $this->productName;
     }
 }

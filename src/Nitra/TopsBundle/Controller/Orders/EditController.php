@@ -59,7 +59,6 @@ class EditController extends BaseEditController
         // получть данные формы 
         $formData = $this->getRequest()->get($formType->getName());
 
-
         // получить пользователя 
         $buyer = $this->em->getRepository('NitraTopsBundle:Buyer')->find($formData['buyer_name']['id']);
 
@@ -89,7 +88,7 @@ class EditController extends BaseEditController
             if (!$this->em->contains($orderEntry)) {
                 // persist $orderEntry
                 $orderEntry->setOrder($Orders);
-                $orderEntry->setStatus('new');
+                    $orderEntry->setStatus('new');
                 $this->em->persist($orderEntry);
             }
             // Отсеиваем позиции, которые пришли в посте

@@ -1,7 +1,12 @@
 <tr iteration="__iteration__" >
     <td class="number order_entry_total">
+        <div class="product_standart">
         {{ form_widget(form.add_order_entry)|e }}
         {{ form_errors(form.add_order_entry)|e }}
+        </div>
+        <div class="product_no_standart" style="display: none" >
+        {{ form_widget(orderEntryForPrototype.vars.prototype.productName)|e }}
+        </div>
         {{ form_widget(orderEntryForPrototype.vars.prototype.production)|e }}
     </td>
     <td class="price">
