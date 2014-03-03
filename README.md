@@ -68,6 +68,7 @@ sure you have translator enabled in your config.
 
 framework:
     translator: ~
+
 ```
 
 For more information about translations, check [Symfony documentation](http://symfony.com/doc/current/book/translation.html).
@@ -116,8 +117,10 @@ public function registerBundles()
         new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         new Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle(),
         new Millwright\MenuBundle\MillwrightMenuBundle(),
-		new Millwright\ConfigurationBundle\MillwrightConfigurationBundle(),
-		new FOS\UserBundle\FOSUserBundle(),
+	new Millwright\ConfigurationBundle\MillwrightConfigurationBundle(),
+        new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+        new Pinano\Select2Bundle\PinanoSelect2Bundle(),
+	new FOS\UserBundle\FOSUserBundle(),
     );
 }
 ```
@@ -164,17 +167,24 @@ admingenerator_generator:
     base_admin_template: ::base_admin.html.twig
     use_doctrine_orm: true
     stylesheets: []
+    logout_path: fos_user_security_logout
     twig:
         use_localized_date: true
+        use_form_resources: true
         date_format: 'Y-M-d'
-        localized_date_format: 'full'
+        localized_date_format: 'medium'
         localized_datetime_format: 'medium'
         datetime_format: 'Y-m-d H:i'  
         number_format:
             decimal: 2
             decimal_point: ','
             thousand_separator: ' '
-			
+            
+# Замена combobox на Select2             
+genemu_form:
+    select2:
+        enabled: true
+        
 # Add blameable listener
 parameters:
     knp.doctrine_behaviors.blameable_listener.user_entity: Nitra\NitraThemeBundle\Entity\User			

@@ -33,8 +33,9 @@
         "components/jquery": ">= 1.9.0, < 3.0.0",
         "components/jqueryui": "~1.10",
         "zerkalica/millwright-menu-bundle": "dev-master",
-        "leafo/lessphp": "0.4.*"
-                
+        "leafo/lessphp": "0.4.*",
+        "genemu/form-bundle": "2.2.*",
+        "pinano/select2-bundle": "3.4.*"                
     },
     "require-dev": {
         "doctrine/common": ">=2.2.3,<2.5-dev",

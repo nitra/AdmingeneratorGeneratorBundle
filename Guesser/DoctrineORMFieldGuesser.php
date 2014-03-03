@@ -107,7 +107,9 @@ class DoctrineORMFieldGuesser extends ContainerAware
     {
         $formTypes = $this->container->getParameter('admingenerator.doctrine_form_types');
 
-        if ('date' === $dbType) {
+        if ('entity' === $dbType) {
+            return 'genemu_jqueryselect2_entity';
+        } elseif ('date' === $dbType) {
             return 'date';
         } elseif (array_key_exists($dbType, $formTypes)) {
             return $formTypes[$dbType];
@@ -165,8 +167,8 @@ class DoctrineORMFieldGuesser extends ContainerAware
                 'required'  => $this->isRequired($columnName)
             );
         }
-
-        if (preg_match("#^entity#i", $formType) || preg_match("#entity$#i", $formType)) {
+        
+        if ('genemu_jqueryselect2_entity' == $formType) {
             $mapping = $this->getMetadatas()->getAssociationMapping($columnName);
 
             return array(
@@ -174,6 +176,20 @@ class DoctrineORMFieldGuesser extends ContainerAware
                 'em'        => 'default', // TODO: shouldn't this be configurable?
                 'class'     => $mapping['targetEntity'],
                 'required'  => $this->isRequired($columnName),
+                'configs' => array('placeholder' => '',
+                                    'width' => 'element',
+                                    'allowClear' => !$this->isRequired($columnName))
+            );
+        }
+        
+        if (preg_match("#^entity#i", $formType) || preg_match("#entity$#i", $formType)) {
+            $mapping = $this->getMetadatas()->getAssociationMapping($columnName);
+
+            return array(
+                'multiple'  => ($mapping['type'] === ClassMetadataInfo::MANY_TO_MANY || $mapping['type'] === ClassMetadataInfo::ONE_TO_MANY),
+                'em'        => 'default', // TODO: shouldn't this be configurable?
+                'class'     => $mapping['targetEntity'],
+                'required'  => $this->isRequired($columnName)
             );
         }
 
