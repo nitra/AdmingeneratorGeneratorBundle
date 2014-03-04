@@ -17,11 +17,11 @@ class LoadOrderEntryData extends AbstractFixture implements OrderedFixtureInterf
         $statuses = array('new', 'work', 'ready');
         for ($i = 1; $i < 41; $i++) {
             $p = rand(1, 40);
-            $q = rand(1, 10);
+//            $q = rand(1, 10);
             $status = rand(0, 2);
             $production = $this->getReference("product$p");
             $order = $this->getReference("Order$o");
-            $sum1 = rand(1, $order->getAmount());
+            $sum1 = rand(1, $order->getTotal());
             $assemblyCost = rand(1, 500);
             $orderEntry1 = new OrderEntry();
             $orderEntry1
@@ -32,7 +32,7 @@ class LoadOrderEntryData extends AbstractFixture implements OrderedFixtureInterf
                     ->setOrientation("Правый")
                     ->setPrice($sum1)
                     ->setProduction($production)
-                    ->setQuantity($q)
+                    ->setQuantity(1)
                     ->setStatus($statuses[$status]);
             $manager->persist($orderEntry1);
             
@@ -40,7 +40,6 @@ class LoadOrderEntryData extends AbstractFixture implements OrderedFixtureInterf
             $q = rand(1, 10);
             $status = rand(0, 2);
             $production = $this->getReference("product$p");
-            $sum2 = rand(1, $order->getAmount() - $sum1);
             $assemblyCost = rand(1, 500);
             $orderEntry2 = new OrderEntry();
             $orderEntry2
@@ -49,9 +48,9 @@ class LoadOrderEntryData extends AbstractFixture implements OrderedFixtureInterf
                     ->setComment("Фикстуры")
                     ->setOrder($order)
                     ->setOrientation("Левый")
-                    ->setPrice($sum2)
+                    ->setPrice($order->getTotal() - $sum1)
                     ->setProduction($production)
-                    ->setQuantity($q)
+                    ->setQuantity(1)
                     ->setStatus($statuses[$status]);
             $manager->persist($orderEntry2);
             $o++;

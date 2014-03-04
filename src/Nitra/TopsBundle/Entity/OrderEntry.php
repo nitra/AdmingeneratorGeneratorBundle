@@ -95,7 +95,7 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     private $comment;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $status;
 

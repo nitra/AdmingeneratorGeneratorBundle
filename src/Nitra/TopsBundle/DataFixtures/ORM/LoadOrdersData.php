@@ -23,7 +23,7 @@ class LoadOrdersData extends AbstractFixture implements OrderedFixtureInterface
             $$name = new Orders();
             $$name
                     ->setAddress(" Адрес по заказу $i")
-                    ->setAmount($amount)
+                    ->setTotal($amount)
                     ->setBuyer($this->getReference("buyer$b"))
                     ->setComment('Фикстуры')
                     ->setDeliveryCost($deliveryCost)
