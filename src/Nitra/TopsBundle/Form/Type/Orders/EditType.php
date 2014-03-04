@@ -9,7 +9,8 @@ use Doctrine\ORM\EntityRepository;
 use Nitra\TopsBundle\Form\DataTransformer\ProductionIdToEntityTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Admingenerator\GeneratorBundle\Form\Type\AjaxAutocompleteType;
+//use Admingenerator\GeneratorBundle\Form\Type\AjaxAutocompleteType; // Раскомментировать после добавления этого фала в админ генератор
+use Nitra\TopsBundle\Form\Type\AjaxAutocompleteType;
 use Symfony\Component\Validator\Constraints;
 
 /**
@@ -35,8 +36,6 @@ class EditType extends BaseEditType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        var_dump($options->toArray());die;
-//        die('ss');
         parent::buildForm($builder, $options);
 
 

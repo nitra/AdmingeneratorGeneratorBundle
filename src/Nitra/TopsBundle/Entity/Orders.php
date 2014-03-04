@@ -97,7 +97,7 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     /**
      * @var string $status Статус
      * 
-     * @ORM\Column(type="string", length=11)
+     * @ORM\Column(type="string", length=255)
      * 
      * @Assert\Choice(
      *     choices = { "Новый", "В работе", "Готов" },
@@ -159,29 +159,6 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     public function getBuyer()
     {
         return $this->buyer;
-    }
-
-    /**
-     * Set amount
-     *
-     * @param string $amount
-     * @return Orders
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-
-        return $this;
-    }
-
-    /**
-     * Get amount
-     *
-     * @return string 
-     */
-    public function getAmount()
-    {
-        return $this->amount;
     }
 
     /**
