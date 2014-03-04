@@ -57,7 +57,7 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     /**
      * нестандартный товар
      * @ORM\Column(type="text", nullable=true)
-         */
+     */
     protected $productName;
 
     /**
@@ -100,8 +100,7 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     private $status;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Colors")
-     * @ORM\JoinTable(name="orderEntry_colors")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $color;
 
@@ -376,7 +375,6 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
         return $this->assemblyCost;
     }
 
-
     /**
      * Set productName
      *
@@ -399,4 +397,5 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     {
         return $this->productName;
     }
+
 }
