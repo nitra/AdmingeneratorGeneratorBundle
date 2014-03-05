@@ -84,7 +84,7 @@ class ActionsController extends BaseActionsController
     }
 
     /**
-     * выбор покупателей для автоподсказки
+     * 
      * @Route("/get-add-orderEntry-autocomplete", name="Nitra_TopsBundle_Get_AddOE_Autocomplete")
      */
     public function addOEAutocompleteAction()
@@ -121,8 +121,6 @@ class ActionsController extends BaseActionsController
         $oeId = $this->getRequest()->get('orderEntryId', false);
         $oId = $this->getRequest()->get('orderId', false);
         $toStatus = $this->getRequest()->get('toStatus', false);
-//        var_dump($oeId, $oId, $oeToStatus);
-//        die;
 
         if ($oeId) {
             // получить заказ
@@ -135,13 +133,16 @@ class ActionsController extends BaseActionsController
             $orderEntry->setStatus($toStatus);
         } else {
             // получить заказ
-            $order = $this->em->getRepository('NitraTopsBundle:Orders')->find($oId);
-            if (!$order) {
+            $orders = $this->em->getRepository('NitraTopsBundle:Orders')->find($oId);
+            if (!$orders) {
                 // позиция заказа не найдена, вернуть массив ошибок 
                 return new JsonResponse(array('type' => 'error', 'message' => "Заказ не найден"));
             }
+//            var_dump($toStatus);
 
-            $order->setStatus($toStatus);
+            $orders->setStatus($toStatus);
+//                var_dump( $orders->getStatus());die;
+            
         }
 
         // сохранить
@@ -169,8 +170,7 @@ class ActionsController extends BaseActionsController
      */
     public function acceptPayment(Orders $orders, Request $request)
     {
-//        var_dump(get_class($this->em));
-//        die('dd');
+
         $formIsValid = false;
         $income = new Income();
         $income->setOrders($orders);
@@ -213,11 +213,4 @@ class ActionsController extends BaseActionsController
         );
     }
 
-//
-//    /**                    Запланировать дату отгрузки
-//     * @Route("/{pk}-toPlan", name="Nitra_ErpLuganskBundle_Order_ToPlan")
-//     * @ParamConverter("orders", class="NitraErpLuganskBundle:Orders", options={"id" = "pk"})
-//     * @Template("NitraErpLuganskBundle:OrdersActions:toPlan.html.twig")
-//     */
-// 
 }
