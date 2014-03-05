@@ -66,7 +66,6 @@ class Income {
      * @ORM\ManyToOne(targetEntity="Orders")
      * @ORM\JoinColumn(nullable=true)
      *
-     * @Assert\NotBlank
      */
     protected $orders;
 

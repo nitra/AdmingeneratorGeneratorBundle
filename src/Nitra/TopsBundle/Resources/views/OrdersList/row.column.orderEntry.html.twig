@@ -10,7 +10,15 @@
               {% endif %}
 
             </td>
-            <td>{{orderEntry.orientation}}</td>
+            <td>
+           {% if orderEntry.orientation == "Правый" %}
+                    {{orderEntry.orientation}}
+            {% elseif  orderEntry.orientation == "Правый" %}
+                 {{orderEntry.orientation}}
+            {% else %}
+                ________
+            {% endif %}
+            </td>
             <td>{{ orderEntry.quantity == 1 ? orderEntry.price : orderEntry.quantity ~ 'x' ~ orderEntry.price  }}</td>
             <td>{{ orderEntry.assemblyCost }}</td>
             <td style="white-space: nowrap;"> 

@@ -21,19 +21,15 @@ class NewType extends BaseNewType
  */
 
 
-
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        
-//        var_dump('dd');die;
-
-       
-
-        parent::buildForm($builder, $options);
-    }
-    
-    
-      
+//
+//    public function buildForm(FormBuilderInterface $builder, array $options)
+//    {
+//        
+//        parent::buildForm($builder, $options);
+//    }
+//    
+//    
+//      
     /**
      * setDefaultOptions
      * установить значения формы по умолчанию

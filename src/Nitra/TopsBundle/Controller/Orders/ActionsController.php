@@ -179,8 +179,6 @@ class ActionsController extends BaseActionsController
 
         $form = $this->createForm(new addIncome(), $income, array(
             'em' => $this->em,
-//            'session' => $this->get('session'),
-//            'manager' => $user,
         ));
 
         if ($request->getMethod() == 'POST') {
