@@ -1,0 +1,63 @@
+<h1> Создание рекламации # <b>{{ Orders.id }}</b></h1>
+
+
+{% if formIsValid %}
+<div class="notice">Данные приняты</div>
+<script>
+    // обновление строки
+    renderTr("{{ Orders.id }}");
+    // закрытие колорбокса
+    setTimeout('$.fn.colorbox.close()', 1000);
+</script>
+{% else %}
+<fieldset class="form_block form_fieldset_search">
+      <form action="{{ path("Nitra_TopsBundle_Orders_addReclamation", {'pk': Orders.id }) }}"
+          method="post" {{ form_enctype(form) }} 
+          class="colorbox_form" >
+            {{ form_errors(form) }}
+
+        <div class="form_row">
+                {{ form_label(form.repairedCost) }}
+                {{ form_errors(form.repairedCost) }}
+                {{ form_widget(form.repairedCost) }}
+        </div>
+
+        <div class="form_row">
+                {{ form_label(form.repairedComment) }}
+                {{ form_errors(form.repairedComment) }}
+                {{ form_widget(form.repairedComment) }}
+        </div>
+
+
+        <div class="actions">
+            <input type="submit" class="save btn-success" value="Сохранить" />
+            <a class="btn">Отмена</a>
+        </div>
+        {{ form_rest(form) }}
+    </form>
+
+</fieldset>
+{% endif %}
+<script type="text/javascript">
+    $('.colorbox_form').submit(function() {
+        var data = $(this).serialize();
+        $(this).html('<img alt="Обработка..." id="loader" class="loader" src="{{ asset('bundles/nitraorder/images/search-ajax-loader.gif') }}">');
+        $.fn.colorbox.resize();
+        $.ajax({
+            url: this.action,
+            data: data,
+            type: 'post',
+            success: function(fromServer) {
+                $('#cboxLoadedContent').html(fromServer);
+                $.fn.colorbox.resize();
+            }
+        });
+        return false;
+    });
+
+    $('.colorbox_form a.btn').click(function() {
+        $.fn.colorbox.close();
+    });
+</script>
+
+

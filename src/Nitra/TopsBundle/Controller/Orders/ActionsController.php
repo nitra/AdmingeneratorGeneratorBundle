@@ -142,7 +142,6 @@ class ActionsController extends BaseActionsController
 
             $orders->setStatus($toStatus);
 //                var_dump( $orders->getStatus());die;
-            
         }
 
         // сохранить
@@ -207,6 +206,58 @@ class ActionsController extends BaseActionsController
         return array(
             "Orders" => $orders,
             "form" => $form->createView(),
+            "formIsValid" => $formIsValid,
+        );
+    }
+
+    /**
+     * выбор покупателей для автоподсказки
+     * @Route("/{pk}-order-add-reclamation", name="Nitra_TopsBundle_Orders_addReclamation")
+     * @ParamConverter("orders", class="NitraTopsBundle:Orders", options={"id" = "pk"})
+     * @Template("NitraTopsBundle:OrdersActions:ordersAddReclamation.html.twig")
+     */
+    public function orderAddReclamation(Orders $orders, Request $request)
+    {
+
+        $formReclamation = $this->createFormBuilder(null)
+                ->add('repairedCost', 'number', array(
+                    'label' => 'Стоимость'))
+                ->add('repairedComment', 'textarea', array(
+            'label' => 'Кометарий'));
+
+        
+//        $formData = $this->getRequest()->get('');
+      
+        $formIsValid = false;
+        if ($request->getMethod() == 'POST') {
+ 
+            // заполнить форму 
+           $form =  $formReclamation->getForm()->submit($request);
+            // валидация формы
+            if ($form->isValid()) {
+                try {
+                    $dateForm = $form->getData();
+                    $orders->setRepairedComment($dateForm['repairedComment']);
+                    $orders->setRepairedCost($dateForm['repairedCost']);
+                    // сохранить 
+                    $this->em->persist($orders);
+                    $this->em->flush();
+
+                    // форма отработала успешно
+                    $formIsValid = true;
+                } catch (\Exception $e) {
+                    $form->addError(new FormError($e->getMessage()));
+                }
+            } else {
+                // отображение ошибки валидации формы
+                $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans("action.object.edit.error", array(), 'Admingenerator'));
+            }
+        }
+
+        // вернуть массив данных передаваемых в шаблон 
+        return array(
+            "Orders" => $orders,
+            "form" => $formReclamation->getForm()->createView(),
             "formIsValid" => $formIsValid,
         );
     }

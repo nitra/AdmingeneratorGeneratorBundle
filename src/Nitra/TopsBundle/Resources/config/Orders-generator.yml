@@ -37,9 +37,10 @@ builders:
                 edit: ~
                 delete: ~
                 income:           { label: "Принять деньги" }
+                addReclamation:           { label: "Создать рекламацию" }
     filters:
         params:
-            display:  [status,buyer, address ,madeAt, deliveryDate,comment  ] 
+            display:  [buyer,status, address ,madeAt, deliveryDate,comment  ] 
     new:
         params:
             title: New object for TopsBundle
