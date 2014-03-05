@@ -6,34 +6,34 @@ NitraTopsBundle_admin_nitra_tops_bundle_colors:
 NitraTopsBundle_admin_nitra_tops_bundle_production:
     resource: "@NitraTopsBundle/Controller/Production/"
     type:     admingenerator
-    prefix:   /admin/nitra_tops_bundle/production
+    prefix:   /production
 
 NitraTopsBundle_admin_nitra_tops_bundle_orders:
     resource: "@NitraTopsBundle/Controller/Orders/"
     type:     admingenerator
-    prefix:   /admin/nitra_tops_bundle/orders
+    prefix:   /orders
 
 NitraTopsBundle_admin_nitra_tops_bundle_buyer:
     resource: "@NitraTopsBundle/Controller/Buyer/"
     type:     admingenerator
-    prefix:   /admin/nitra_tops_bundle/buyer
+    prefix:   /buyer
 
 NitraTopsBundle_admin_nitra_tops_bundle_expanse:
     resource: "@NitraTopsBundle/Controller/Expanse/"
     type:     admingenerator
-    prefix:   /admin/nitra_tops_bundle/expanse
+    prefix:   /expanse
 
 NitraTopsBundle_admin_nitra_tops_bundle_categoryExpanse:
     resource: "@NitraTopsBundle/Controller/CategoryExpanse/"
     type:     admingenerator
-    prefix:   /admin/nitra_tops_bundle/categoryExpanse
+    prefix:   /category-expanse
 
 NitraTopsBundle_admin_nitra_tops_bundle_account:
     resource: "@NitraTopsBundle/Controller/Account/"
     type:     admingenerator
-    prefix:   /admin/nitra_tops_bundle/account
+    prefix:   /account
 
 NitraTopsBundle_admin_nitra_tops_bundle_income:
     resource: "@NitraTopsBundle/Controller/Income/"
     type:     admingenerator
-    prefix:   /admin/nitra_tops_bundle/income
+    prefix:   /income

@@ -12,10 +12,10 @@
     function renderTr(orderId) {
         // ID идентификатор заказа
         var orderId = parseInt(orderId);
-
         // url контроллер получение html данных строки заказа
-        var actionUrl = "{{ path('Nitra_TopsBundle_Orders_Render_Tr',{ pk: 1 })}}";
 
+       var actionUrl =  ""+orderId+"-render-tr";
+{#        var actionUrl = "{{ path('Nitra_TopsBundle_Orders_Render_Tr',{ pk: 1 })}}";#}
 
         // отправить ajax запрос на получаение данных по строке заказа
         $.ajax(actionUrl, {
