@@ -35,8 +35,6 @@ class EditType extends BaseEditType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        var_dump($options->toArray());die;
-//        die('ss');
         parent::buildForm($builder, $options);
         $formOptions = $this->getFormOption('deliveryCost', array('precision' => 0, 'attr' => array('class' => 'deliveryCost'), 'required' => true, 'label' => 'Стоимость доставки', 'translation_domain' => 'Admin',));
         $builder->add('deliveryCost', 'number', $formOptions);
