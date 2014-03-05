@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityRepository;
 use Nitra\TopsBundle\Form\DataTransformer\ProductionIdToEntityTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Admingenerator\GeneratorBundle\Form\Type\AjaxAutocompleteType;
+use Nitra\TopsBundle\Form\Type\AjaxAutocompleteType;
 use Symfony\Component\Validator\Constraints;
 
 /**
@@ -38,13 +38,14 @@ class EditType extends BaseEditType
 //        var_dump($options->toArray());die;
 //        die('ss');
         parent::buildForm($builder, $options);
-
+        $formOptions = $this->getFormOption('deliveryCost', array('precision' => 0, 'attr' => array('class' => 'deliveryCost'), 'required' => true, 'label' => 'Стоимость доставки', 'translation_domain' => 'Admin',));
+        $builder->add('deliveryCost', 'number', $formOptions);
 
         // виджет позиции заказа
         $builder->add('orderEntry', 'collection', array(
             'type' => new OrderEntryType($this->em),
             'allow_add' => true,
-             'label' => ' ',
+            'label' => ' ',
             'allow_delete' => true,
             'prototype' => true,
             'by_reference' => false
@@ -65,7 +66,13 @@ class EditType extends BaseEditType
             $options['buyer_phone_add_options']['data']['id'] = $options['data']->getBuyer()->getId();
         }
 
-        $afterJavaScriptProduct = " json_data = eval('('+row.extra[2]+')');";
+        $afterJavaScriptProduct = "json_data = eval('('+row.extra[2]+')');"
+            ."    var rr = $('#edit_orders_add_order_entry_name').closest('tr').find('.price').val(json_data.cost);"
+                
+//                 . "console.log(rr);"
+//                . "console.log(json_data.cost);"
+//                . "console.log(json_data.assemblyCost);"
+       ;
 
 
 //                ;

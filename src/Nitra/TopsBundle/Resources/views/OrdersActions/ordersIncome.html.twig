@@ -4,7 +4,9 @@
 {% if formIsValid %}
 <div class="notice">Данные приняты</div>
 <script>
-
+    // обновление строки
+    renderTr("{{ Orders.id }}");
+    // закрытие колорбокса
     setTimeout('$.fn.colorbox.close()', 1000);
 </script>
 {% else %}

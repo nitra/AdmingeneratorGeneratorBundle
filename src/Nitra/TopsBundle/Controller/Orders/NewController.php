@@ -1,12 +1,12 @@
 <?php
 
 namespace Nitra\TopsBundle\Controller\Orders;
+
 use Nitra\TopsBundle\Entity\Buyer;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nitra\TopsBundle\Form\Type\Orders\NewType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\Form;
-
 use Admingenerated\NitraTopsBundle\BaseOrdersController\NewController as BaseNewController;
 
 /**
@@ -33,6 +33,7 @@ class NewController extends BaseNewController
      * preBindRequest
      * @param \Nitra\OrderBundle\Entity\Order $Order your \Nitra\OrderBundle\Entity\Order object
      */
+
     /**
      * preBindRequest
      * @param \Nitra\OrderBundle\Entity\Order $Order your \Nitra\OrderBundle\Entity\Order object
@@ -41,14 +42,14 @@ class NewController extends BaseNewController
     {
         // получить тип формы
         $formType = $this->getNewType();
-        
+
         // получть данные формы 
         $formData = $this->getRequest()->get($formType->getName());
-        
+
         // получить пользователя 
         $buyer = $this->em->getRepository('NitraTopsBundle:Buyer')->find($formData['buyer_name']['id']);
 
-        
+
         // Если пользователь не найден
         if (!$buyer) {
             // покупатель не найден создать нового 
@@ -58,14 +59,18 @@ class NewController extends BaseNewController
             $buyer->setPhone($formData['buyer_phone']['name']);
             $this->em->persist($buyer);
         }
-         $Orders->setTotal(0);
-         $Orders->setStatus('Новый');
+        $totalCost = 0;
+        $totalCost = + $formData["deliveryCost"];
+        foreach ($formData["orderEntry"] as $oe) {
+            $totalCost +=  ($oe['assemblyCost'] + $oe['price']) * $oe['quantity'];
+        }
+        $Orders->setTotal($totalCost);
+
+        $Orders->setStatus('Новый');
         // добавить покупателья в заказ
         $Orders->setBuyer($buyer);
-        
     }
 
-  
     /**
      * preSave
      * @param \Symfony\Component\Form\Form $form the valid form
@@ -81,9 +86,7 @@ class NewController extends BaseNewController
                 $orderEntry->setOrder($Orders);
                 $this->em->persist($orderEntry);
             }
-            
         }
-
     }
 
 }

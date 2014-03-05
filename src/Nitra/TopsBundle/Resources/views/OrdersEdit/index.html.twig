@@ -1,21 +1,28 @@
 {% extends_admingenerated "NitraTopsBundle:OrdersEdit:index.html.twig" %}
 
 
+
+
 {% block javascript_head %}
  {{ parent() }}
 
 <script type="text/javascript">
 
+    $(document).ready(function() {
 
-
+        $('#cart_product .quantity,#cart_product .price,#cart_product .assemblyCost, .deliveryCost').change(function() {
+            recalcTotal(this);
+        });
+    });
     function addProductNameOE() {
         // получаем данные которые будут добавляться при сосздании новой позиции 
         var prototype = $('#cart_product').data('prototype');
-        console.log(prototype);
         var index = getProductsCounter();
 {#        var newForm = prototype.replace(/__name__/g, index).replace(/__iteration__/g, (index + 1).replace('class="product_no_standart" style="display: none"', 'class="product_no_standart"').replace('class="product_standart"', 'class="product_standart" style="display: none"');#}
-        var newForm = prototype.replace(/__name__/g, index).replace(/__iteration__/g, (index + 1)).replace('class="product_no_standart" style="display: none"', 'class="product_no_standart"').replace('class="product_standart"', 'class="product_standart" style="display: none"').replace('required="required"','');
+        var newForm = prototype.replace(/__name__/g, index).replace(/__iteration__/g, (index + 1)).replace('class="product_no_standart" style="display: none"', 'class="product_no_standart"').replace('class="product_standart"', 'class="product_standart" style="display: none"').replace('required="required"', '');
         $(newForm).insertAfter($("tr:first"));
+
+
     }
     /**
      * добавление нового товара
@@ -25,11 +32,9 @@
 
         // получаем данные которые будут добавляться при сосздании новой позиции 
         var prototype = $('#cart_product').data('prototype');
-        console.log(prototype);
         var index = getProductsCounter();
         var newForm = prototype.replace(/__name__/g, index).replace(/__iteration__/g, (index + 1));
         $(newForm).insertAfter($("tr:first"));
-
     }
 
     /**
@@ -39,12 +44,10 @@
 
         var counter = 0;
         var iterations = [];
-
         // получить максивальный элемент массива
         iterations.max = function(arr) {
             return Math.max.apply(Math, arr);
         };
-
         // обойти все TR с продуктами
         $('#cart_product tr').each(function() {
             // проверить установлен ли атрибут iteration для TR
@@ -66,7 +69,6 @@
      * удаление позиции заказа
      */
     function delProductOE(_this) {
-        console.log(_this);
         $(_this).closest('tr').remove();
     }
 
@@ -82,8 +84,26 @@
 
             });
         })
-
     });
+    function recalcTotal(_this) {
+        var deliveryCost = parseInt($(document).find('.deliveryCost').val());
+        // Обновление итого по заказу
+
+        deliveryCost = (isNaN(deliveryCost) ? '0' : deliveryCost)*1;
+
+        var total = deliveryCost;
+
+        console.log(total);
+        $('._cart_product').each(function() {
+            var quantity = ($(this).find('input.quantity').val())*1;
+            var price = ($(this).find('input.price').val())*1;
+            var assemblyCost = ($(this).find('input.assemblyCost').val())*1;
+            total += quantity * (price + assemblyCost);
+        });
+        $(document).find('div#total_cost').html(total);
+
+
+    }
 </script>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends_admingenerated "NitraTopsBundle:OrdersList:row.html.twig" %}
 
 {% block list_row %}
-    <tr class="list_trow">
+    <tr class="list_trow" id="tr_order_id{{ Orders.id }}">
         {% block list_row_content %}
             <td class="td_integer td_id">
                 {% block list_td_column_id %}{{ Orders.id }}{% endblock list_td_column_id %}

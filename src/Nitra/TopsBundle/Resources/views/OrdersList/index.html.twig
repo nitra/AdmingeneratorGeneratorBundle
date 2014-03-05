@@ -1,11 +1,45 @@
 {% extends_admingenerated "NitraTopsBundle:OrdersList:index.html.twig" %}
 
-
-
-
     {% block javascript_head %}
     {{ parent() }}
 <script type="text/javascript">
+
+
+    /**
+     * обновление строки TR данных заказа
+     * @param integer orderId - ID идентификатор заказа
+     **/
+    function renderTr(orderId) {
+        // ID идентификатор заказа
+        var orderId = parseInt(orderId);
+
+        // url контроллер получение html данных строки заказа
+        var actionUrl = "{{ path('Nitra_TopsBundle_Orders_Render_Tr',{ pk: 1 })}}";
+
+
+        // отправить ajax запрос на получаение данных по строке заказа
+        $.ajax(actionUrl, {
+            dataType: 'html',
+            success: function(data) {
+                $('#tr_order_id' + orderId).replaceWith(data);
+
+                $('.colorbox').colorbox();
+
+                // Popup box
+                $('.popup').each(function() {
+                    $(this).html('<div class="popup_content">' + $(this).html() + '</div>');
+                    $(this).prepend('<div class="popup_arrow"></div>');
+                    $(this).addClass('popup_ready');
+                })
+                $('.popup .popup_arrow').click(function() {
+                    $(this).parent('div.popup').toggleClass('popup_active');
+                    $('.popup').not($(this).parent('div.popup')).removeClass('popup_active');
+                });
+            }
+        });
+  
+    }
+
 
     /**
      * добавление нового товара
@@ -42,7 +76,7 @@
                 toStatus: toStatus
             },
             success: function(jqXHR, textStatus, errorThrown) {
-                alert(textStatus);
+                renderTr(orderId);
 
 
             }
@@ -57,7 +91,7 @@
         );
 
     }
-    
+
 
     function setStatus(orderId, toStatus) {
 
@@ -84,7 +118,7 @@
                 toStatus: toStatus
             },
             success: function(jqXHR, textStatus, errorThrown) {
-                alert(textStatus);
+                renderTr(orderId)
 
 
             }

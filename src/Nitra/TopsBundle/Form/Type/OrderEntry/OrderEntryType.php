@@ -35,9 +35,9 @@ class OrderEntryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('quantity', 'text', array('attr' => array('class' => 'quantity')))
-                ->add('price')
-                ->add('assemblyCost')
+                ->add('quantity', 'text', array('attr' => array('class' => 'quantity','onchange' =>'recalcTotal(this)')))
+                ->add('price',  'number' ,array('attr' => array('class' => 'price' , 'onchange' =>'recalcTotal(this)')))
+                ->add('assemblyCost', 'number' ,array('attr' => array('class' => 'assemblyCost', 'onchange' =>'recalcTotal(this)')))
                 ->add('productName', 'text', array('required' => false, 'label' => ' ',));
 
         ;

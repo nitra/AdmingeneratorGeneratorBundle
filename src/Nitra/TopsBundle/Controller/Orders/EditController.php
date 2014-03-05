@@ -71,6 +71,12 @@ class EditController extends BaseEditController
             $buyer->setAddress($formData["address"]);
             $this->em->persist($buyer);
         }
+        $totalCost=0;
+        $totalCost +=  $formData["deliveryCost"];
+        foreach ( $formData["orderEntry"] as $oe){
+            $totalCost += ($oe['assemblyCost']+$oe['price'])*$oe['quantity'];
+        }
+         $Orders->setTotal($totalCost);
 
         // добавить покупателья в заказ
         $Orders->setBuyer($buyer);

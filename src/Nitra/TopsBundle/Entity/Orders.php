@@ -97,11 +97,8 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     /**
      * @var string $status Статус
      * 
-     * @ORM\Column(type="string", length=11)
+     * @ORM\Column(type="string", length=32)
      * 
-     * @Assert\Choice(
-     *     choices = { "Новый", "В работе", "Готов" },
-     *     message = "Неверный статус")
      */
     protected $status;
 

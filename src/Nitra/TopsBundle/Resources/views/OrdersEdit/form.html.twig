@@ -2,16 +2,22 @@
 {% trans_default_domain "NitraTopsBundle" %}
 
 {% block form %}
-    <form class="admin_form"
+<form class="admin_form"
         {% if Orders.id %}
-            action="{{ path("Nitra_TopsBundle_Orders_update", { 'pk': Orders.id }) }}"
+      action="{{ path("Nitra_TopsBundle_Orders_update", { 'pk': Orders.id }) }}"
         {% else %}
-            action="{{ path("Nitra_TopsBundle_Orders_create") }}"
+      action="{{ path("Nitra_TopsBundle_Orders_create") }}"
         {% endif %}
-    method="post" {{ form_enctype(form) }}>
+      method="post" {{ form_enctype(form) }}>
         {{ form_errors(form) }}
         {% block form_fieldset_NONE %}
-            <fieldset class="form_block form_fieldset_NONE fieldset_tabbable form_orders">
+    <fieldset class="form_block form_fieldset_NONE fieldset_tabbable form_orders">
+        Итого
+        
+        
+        <div id="total_cost">
+         {{ Orders.getTotal }}
+        </div>
         <fieldset class="form_block form_fieldset_buyer dubble_column_rows">
                 {{ form_row(form.buyer_name) }}
                 {{ form_errors(form.buyer_phone) }}    
@@ -37,43 +43,43 @@
                 {% block form_comment %}
                     {{ form_row(form['comment']) }}
                 {% endblock form_comment %}
-                
+
                 {% block form_buttons %}
-                    <div id="edit-actions" class="actions form-actions">
+        <div id="edit-actions" class="actions form-actions">
                         {% block form_actions %}
-                            <input type="submit" name="save" class="save btn-success" value="{{ 'action.generic.save'|trans({}, 'Admingenerator') }}" />
-                            <a class="list" href="{{ path("Nitra_TopsBundle_Orders_list") }}">{{ 'action.generic.list'|trans({}, 'Admingenerator') }}</a>
+            <input type="submit" name="save" class="save btn-success" value="{{ 'action.generic.save'|trans({}, 'Admingenerator') }}" />
+            <a class="list" href="{{ path("Nitra_TopsBundle_Orders_list") }}">{{ 'action.generic.list'|trans({}, 'Admingenerator') }}</a>
                         {% endblock form_actions %}
-                    </div>
+        </div>
                 {% endblock form_buttons %}
-            </fieldset>
+    </fieldset>
         {% endblock form_fieldset_NONE %}
 
-        <div class="order_form">
-            <input class="add_product" type='button' value="{{ 'order_edit.add_product'|trans }}" onclick="addProductOE()"/>
-            <input class="add_product" type='button' value="{{ 'order_edit.add_no'|trans }}" onclick="addProductNameOE()"/>
-            <div class="table">
-                <table class="data_table" id="cart_product" data-prototype='{% include "NitraTopsBundle:OrdersEdit:cartProductTrPrototype.html.twig" with {'orderEntryForPrototype':form['orderEntry']} %}' >
-                    <thead>
-                        <tr>
-                            <th class="product">{{ 'order_edit.product'|trans }}</th>
-                            <th class="orientation">{{ 'order_edit.orientation'|trans }}</th>
-                            <th class="count">{{ 'order_edit.count'|trans }}</th>
-                            <th class="price">{{ 'order_edit.price'|trans }}</th>
-                            <th class="price_all">{{ 'order_edit.price_all'|trans }}</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody id="cartList">
+    <div class="order_form">
+        <input class="add_product" type='button' value="{{ 'order_edit.add_product'|trans }}" onclick="addProductOE()"/>
+        <input class="add_product" type='button' value="{{ 'order_edit.add_no'|trans }}" onclick="addProductNameOE()"/>
+        <div class="table">
+            <table class="data_table" id="cart_product" data-prototype='{% include "NitraTopsBundle:OrdersEdit:cartProductTrPrototype.html.twig" with {'orderEntryForPrototype':form['orderEntry']} %}' >
+                <thead>
+                    <tr>
+                        <th class="product">{{ 'order_edit.product'|trans }}</th>
+                        <th class="orientation">{{ 'order_edit.orientation'|trans }}</th>
+                        <th class="count">{{ 'order_edit.count'|trans }}</th>
+                        <th class="price">{{ 'order_edit.price'|trans }}</th>
+                        <th class="price_all">{{ 'order_edit.price_all'|trans }}</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody id="cartList">
                         {% for entry in form['orderEntry'] %}
                             {% include "NitraTopsBundle:OrdersEdit:cartProductTr.html.twig" with {'orderEntry' : entry, 'iteration':loop.index} %}
                         {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {{ form_rest(form) }}
+                </tbody>
+            </table>
         </div>
-    </form>
+            {{ form_rest(form) }}
+    </div>
+</form>
 {% endblock form %}
 
 
