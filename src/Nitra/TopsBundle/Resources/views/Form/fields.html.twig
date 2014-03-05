@@ -1,37 +1,21 @@
 {% extends "AdmingeneratorGeneratorBundle:Form:fields.html.twig" %}
-{#{% block ajax_autocomplete_widget %}
-
-    {% spaceless %}
-        {{ form_widget(form.name) }}
-        {{ form_widget(form.id) }}
-    {% endspaceless %}
-
-    {% stylesheets '@AdmingeneratorGeneratorBundle/Resources/public/css/jquery.autocomplete.css' %}
-<link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-
-    {% javascripts '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery.autocomplete.js' %}
-<script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    {% spaceless %}#}
 {% block autocomplete_js %} 
 <script type="text/javascript">
 
-            (function() {
-                $('#{{ form.name.vars.id }}').autocomplete('{{ path (autocompleteActionRouting) }}', {
-                    minChars: {{ minChars }},
-                    delimiter: /(,|;)\s*/,
-                    maxHeight: {{ maxHeight }},
-                    width: {{ width }},
-                    zIndex: 9999,
-                    deferRequestBy: {{ deferRequestBy }},
-                    dataType: "json",
-                    extraParams: {
+    (function() {
+        $('#{{ form.name.vars.id }}').autocomplete('{{ path (autocompleteActionRouting) }}', {
+            minChars: {{ minChars }},
+            delimiter: /(,|;)\s*/,
+            maxHeight: {{ maxHeight }},
+            width: {{ width }},
+            zIndex: 9999,
+            deferRequestBy: {{ deferRequestBy }},
+            dataType: "json",
+            extraParams: {
                 {{ extraParamsString | raw }}
-                    },
-                    onItemSelect: function(row) {
-var ff = 'll';
+            },
+            onItemSelect: function(row) {
+
 
                     {# Для использования json данных необходимо в Контроллере,
                        который возвращает данные для выпадающего списка возвращать данные в следующем формате
@@ -46,25 +30,26 @@ $Строка_отображения_во_время_набора_с_клави�
                     После чего в value1 у нас javascript-массив, к елементам которго можно обращатся value1.ключ_в_массиве
 
                     #}
-                        var json_data = eval('(' + row.extra[2] + ')');
+                var json_data = eval('(' + row.extra[2] + ')');
 
-                    $('#{{ form.name.vars.id }}').closest('tr').find('.price').val(json_data.cost);
-                    $('#{{ form.name.vars.id }}').closest('tr').find('.assemblyCost').val(json_data.assemblyCost);
-                    $('#{{ form.name.vars.id }}').closest('tr').find('.quantity').val("1");
+                $('#{{ form.name.vars.id }}').closest('tr').find('.price').val(json_data.cost);
+                $('#{{ form.name.vars.id }}').closest('tr').find('.assemblyCost').val(json_data.assemblyCost);
+                $('#{{ form.name.vars.id }}').closest('tr').find('.quantity').val("1");
 
-                        $('#{{ form.name.vars.id }}').val(row.extra[0]);
-                        $('#{{ form.id.vars.id }}').val(row.extra[1]);
+                $('#{{ form.name.vars.id }}').val(row.extra[0]);
+                $('#{{ form.id.vars.id }}').val(row.extra[1]);
 
                     {{ afterItemSelectJavascript | raw }}
-                    }
+                recalcTotal();
+            }
 
-                }).change(function() {
-                    if (!$.trim(this.value)) {
-                        $('#{{ form.id.vars.id }}').val('').change();
-                    }
+        }).change(function() {
+            if (!$.trim(this.value)) {
+                $('#{{ form.id.vars.id }}').val('').change();
+            }
 
-                });
-            })();
+        });
+    })();
 </script>
 {% endblock autocomplete_js %} 
 {#

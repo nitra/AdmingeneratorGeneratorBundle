@@ -70,6 +70,7 @@
      */
     function delProductOE(_this) {
         $(_this).closest('tr').remove();
+        recalcTotal();
     }
 
 
@@ -98,6 +99,7 @@
             var quantity = ($(this).find('input.quantity').val())*1;
             var price = ($(this).find('input.price').val())*1;
             var assemblyCost = ($(this).find('input.assemblyCost').val())*1;
+                    console.log(price, assemblyCost);
             total += quantity * (price + assemblyCost);
         });
         $(document).find('div#total_cost').html(total);
