@@ -9,4 +9,15 @@ use Admingenerated\NitraTopsBundle\BaseProductionController\EditController as Ba
  */
 class EditController extends BaseEditController
 {
+
+    /**
+     *  Загрузка изображений
+     *
+     */
+    public function preBindRequest(\Nitra\TopsBundle\Entity\Production $Production)
+    {
+        $file = $this->getRequest()->get('file');
+        $Production->setFile($file);
+    }
+
 }

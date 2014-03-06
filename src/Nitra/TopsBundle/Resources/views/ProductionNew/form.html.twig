@@ -1,1 +1,6 @@
 {% extends_admingenerated "NitraTopsBundle:ProductionNew:form.html.twig" %}
+{% from "NitraUploadBundle:Form:fields.html.twig" import list_files %}
+{% block form_file %}
+    {{ parent() }}
+    {{ list_files(Production.file, 'file') }}
+{% endblock %}
