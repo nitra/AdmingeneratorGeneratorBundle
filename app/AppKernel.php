@@ -27,6 +27,7 @@ class AppKernel extends Kernel {
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Thrace\FormBundle\ThraceFormBundle(),
             new Nitra\TopsBundle\NitraTopsBundle(),
+            new Nitra\UploadBundle\NitraUploadBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
