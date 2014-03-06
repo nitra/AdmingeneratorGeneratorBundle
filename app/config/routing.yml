@@ -18,15 +18,15 @@ NitraTopsBundle_admin_nitra_tops_bundle_buyer:
     type:     admingenerator
     prefix:   /buyer
 
-NitraTopsBundle_admin_nitra_tops_bundle_expanse:
-    resource: "@NitraTopsBundle/Controller/Expanse/"
+NitraTopsBundle_admin_nitra_tops_bundle_expense:
+    resource: "@NitraTopsBundle/Controller/Expense/"
     type:     admingenerator
-    prefix:   /expanse
+    prefix:   /expense
 
-NitraTopsBundle_admin_nitra_tops_bundle_categoryExpanse:
-    resource: "@NitraTopsBundle/Controller/CategoryExpanse/"
+NitraTopsBundle_admin_nitra_tops_bundle_categoryExpense:
+    resource: "@NitraTopsBundle/Controller/CategoryExpense/"
     type:     admingenerator
-    prefix:   /category-expanse
+    prefix:   /category-expense
 
 NitraTopsBundle_admin_nitra_tops_bundle_account:
     resource: "@NitraTopsBundle/Controller/Account/"
@@ -37,7 +37,12 @@ NitraTopsBundle_admin_nitra_tops_bundle_income:
     resource: "@NitraTopsBundle/Controller/Income/"
     type:     admingenerator
     prefix:   /income
-
+    
+NitraTopsBundle_admin_nitra_tops_bundle_analitics:
+    resource: "@NitraTopsBundle/Controller/Analitics/"
+    type:     annotation
+    prefix:   /analytics 
+    
 root:
     pattern: /
     defaults:

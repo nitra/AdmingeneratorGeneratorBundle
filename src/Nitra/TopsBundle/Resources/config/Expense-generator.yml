@@ -1,0 +1,61 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Nitra\TopsBundle\Entity\Expense
+    namespace_prefix: Nitra
+    concurrency_lock: ~
+    bundle_name: TopsBundle
+    pk_requirement: ~
+    fields: 
+      id: { label: № }
+      name: {label: Название}
+      account: { label:Счет }
+      categoryExpense: {label: Категории расходов}
+      comment: {label: Коментарий}
+      amount: { label: Сумма }   
+      date: { label: Дата }
+      updatedAt: {label: Когда изменял}
+      updatedBy: {label: Кто изменял}
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: Список расходов
+            display: [id, date, amount, account,categoryExpense, comment, updatedAt, updatedBy]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    filters:
+        params:
+            display: [date, account,categoryExpense, comment]
+    new:
+        params:
+            title: Создание нового расхода
+            display:  [date, amount, account,categoryExpense, comment]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "Редактирование расходы \"%object%\"|{ %object%: Expense.id }|"
+            display:  [date, amount, account,categoryExpense, comment]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Expense.id }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

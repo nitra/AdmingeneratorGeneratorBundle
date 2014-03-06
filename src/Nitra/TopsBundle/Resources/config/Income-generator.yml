@@ -39,7 +39,7 @@ builders:
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: Income.id }|"
+            title: "Редактирование поступления \"%object%\"|{ %object%: Income.id }|"
             display: [date, amount, account, comment]
             actions:
                 save: ~

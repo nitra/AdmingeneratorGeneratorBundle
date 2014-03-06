@@ -1,11 +1,14 @@
 generator: admingenerator.generator.doctrine
 params:
-    model: Nitra\TopsBundle\Entity\Buyer
+    model: Nitra\TopsBundle\Entity\CategoryExpense
     namespace_prefix: Nitra
     concurrency_lock: ~
     bundle_name: TopsBundle
     pk_requirement: ~
-    fields: ~
+    fields: 
+      name: {label: Название}
+      updatedAt: {label: Когда изменял}
+      updatedBy: {label: Кто изменял}
     object_actions:
         delete: ~
     batch_actions:
@@ -13,8 +16,8 @@ params:
 builders:
     list:
         params:
-            title: Список покупателей
-            display: ~
+            title: Список категорий расходов
+            display: [name,updatedAt, updatedBy ]
             actions:
                 new: ~
             object_actions:
@@ -22,24 +25,24 @@ builders:
                 delete: ~
     filters:
         params:
-            display: ~
+            display: [name]
     new:
         params:
-            title: Создание нового покупателя
-            display: [phone, name, email, address]
+            title: Создание новой категории расходов
+            display: [name]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "Редактирование покупателя \"%object%\"|{ %object%: Buyer.name }|"
-            display: [phone, name, email, address]
+            title: "Редактирование категории расходов \"%object%\"|{ %object%: CategoryExpense.name }|"
+            display: [name]
             actions:
                 save: ~
                 list: ~
     show:
         params:
-            title: "You're viewing the object \"%object%\"|{ %object%: Buyer.title }|"
+            title: "You're viewing the object \"%object%\"|{ %object%: CategoryExpense.name }|"
             display: ~
             actions:
                 list: ~

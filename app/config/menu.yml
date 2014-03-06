@@ -16,12 +16,12 @@ millwright_menu:
       account:
         label: Счета
         route: Nitra_TopsBundle_Account_list
-      expanse:
+      expense:
         label: Расходы
-        route: Nitra_TopsBundle_Expanse_list
-      categoryExpanse:
+        route: Nitra_TopsBundle_Expense_list
+      categoryExpense:
         label: Категории расход
-        route: Nitra_TopsBundle_CategoryExpanse_list
+        route: Nitra_TopsBundle_CategoryExpense_list
       catalog:
         label: Спарвочники
       buyer:
@@ -36,7 +36,9 @@ millwright_menu:
       colors:
         route: Nitra_TopsBundle_Colors_list
         label: Цвета
-
+      analytics_account:
+        label: Активы по счетам
+        route: nitra_tops_analitics_active_accountactive 
           
         
     
@@ -48,11 +50,12 @@ millwright_menu:
           finance:
             children:
               income: ~
-              expanse: ~      
+              expense: ~      
+              analytics_account: ~
           catalog:
               children:
                 account: ~
-                categoryExpanse: ~
+                categoryExpense: ~
                 buyer: ~
                 production: ~
                 colors: ~

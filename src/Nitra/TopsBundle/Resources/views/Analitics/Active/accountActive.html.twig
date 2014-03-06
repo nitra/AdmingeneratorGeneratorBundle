@@ -1,0 +1,60 @@
+{% extends "::base_admin.html.twig" %}
+{% block title %}Активы по счетам{% endblock %}
+
+{% block body %}
+<h1>Активы по счетам</h1>
+
+<div class="filters">
+    <form method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <div class="actions">
+            <input type="submit" class="submit_button" value="Фильтровать" />
+        </div>
+    </form>
+</div>
+
+
+
+<div class="admin_list">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 100px">Дата</th>
+                <th>Описание</th>
+                <th colspan="2" style="width: 200px"></th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="row_highlight">
+                <td colspan="2" class="ar">Баланс на начало периода:</td>
+                <td colspan="2" class="ar">{{ balanceBefore |number_format(0, '', ' ') }}</td>
+            </tr>
+              {% for value in res %}
+            <tr>
+                <td>{{ value.date|localizeddate("medium", "none") }}</td>
+                <td>{{ value.description }}</td>
+                <td class="green ar">{{ value.type == 'plus' ? value.amount|number_format(0, '', ' ') : '' }}</td>
+                <td class="red ar">{{ value.type == 'minus' ? value.amount|number_format(0, '', ' ') : '' }}</td>
+            </tr>
+            {% else %}
+            <tr class="no_results_row">
+                <td colspan="4">Нет данных за выбранный период</td>
+            </tr>
+            {% endfor %}
+
+            <tr class="row_total">
+                <td colspan="2" class="ar">Итого:</td>
+                <td class="green ar">{{ totalIncomes|number_format(0, '', ' ') }}</td>
+                <td class="red ar">{{ totalExpenses|number_format(0, '', ' ') }}</td>
+            </tr>
+            <tr class="row_highlight">
+                <td colspan="2" class="ar">Баланс на конец периода:</td>
+                <td colspan="2" class="ar">{{ balanceAfter |number_format(0, '', ' ') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+{% endblock %}

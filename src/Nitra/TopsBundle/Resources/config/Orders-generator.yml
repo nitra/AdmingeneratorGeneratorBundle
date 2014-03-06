@@ -43,7 +43,7 @@ builders:
             display:  [buyer,status, address ,madeAt, deliveryDate,comment  ] 
     new:
         params:
-            title: New object for TopsBundle
+            title: Создание нового заказа
             display: [buyer, address ,madeAt, deliveryDate, deliveryCost,comment  ] 
             actions:
                 save: ~
