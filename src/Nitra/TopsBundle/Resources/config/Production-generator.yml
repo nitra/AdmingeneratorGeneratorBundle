@@ -6,12 +6,19 @@ params:
     bundle_name: TopsBundle
     pk_requirement: ~
     fields: 
-        id: {label: Код}
-        name: {label: Название}
-        art: {label: Артикул}
-        cost: {label: Цена}
-        assemblyCost: {label: Цена сборки}
-        file:  {label: Документы}
+        id:                         {label: Код}
+        name:                       {label: Название}
+        art:                        {label: Артикул}
+        cost:                       {label: Цена}
+        assemblyCost:               {label: Цена сборки}
+        file:  
+            label:                    Файлы
+            formType:                 nlupload
+            addFormOptions:
+              mapped:                 false
+              multiple:               true
+              base_path:              uploads/documents
+              required:               true
     object_actions:
         delete: ~
     batch_actions:
@@ -34,15 +41,15 @@ builders:
             title: Добавление новго продукта
             display: [art, name, cost, assemblyCost, file ]
             actions:
-                save: ~
-                list: ~
+                save:           ~
+                list:           ~
     edit:
         params:
             title: "Редактирование продукта \"%object%\"|{ %object%: Production.name }|"
             display: [art, name, cost, assemblyCost, file ]
             actions:
-                save: ~
-                list: ~
+                save:           ~
+                list:           ~
     show:
         params:
             title: "You're viewing the object \"%object%\"|{ %object%: production.title }|"

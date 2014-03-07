@@ -1,3 +1,6 @@
+nlupload:
+    resource: "@NitraUploadBundle/Resources/config/routing.yml"
+
 NitraTopsBundle_admin_nitra_tops_bundle_colors:
     resource: "@NitraTopsBundle/Controller/Colors/"
     type:     admingenerator

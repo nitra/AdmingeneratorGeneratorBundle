@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3cc8bfc78d0c741bca76f99e66afb712",
+    "hash": "09a5d8310b72c36a1facbe0d132dfd31",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1069,6 +1069,36 @@
                 "orm"
             ],
             "time": "2013-11-12 12:40:13"
+        },
+        {
+            "name": "e-commerce-admin/uploadbundle",
+            "version": "v1.0.0",
+            "target-dir": "Nitra/UploadBundle",
+            "source": {
+                "type": "git",
+                "url": "git@git.nitra.ua:e-commerce-admin/uploadbundle.git",
+                "reference": "v1.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Nitra\\UploadBundle": ""
+                }
+            },
+            "license": [
+                "CC-BY-NC-ND-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nitra Labs",
+                    "homepage": "http://nitralabs.com"
+                }
+            ],
+            "description": "upload bundle",
+            "keywords": [
+                "upload"
+            ],
+            "time": "2013-08-08 07:57:08"
         },
         {
             "name": "incenteev/composer-parameter-handler",

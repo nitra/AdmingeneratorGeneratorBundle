@@ -43,10 +43,8 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
     /**
      * @var string 
      *
-     * @ORM\Column(type="string", nullable=true,  length=64)
+     * @ORM\Column(type="array", nullable=true)
      * 
-     * @Assert\File
-     * @Assert\Length(max = "64")
      */
     protected $file;
 

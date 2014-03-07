@@ -30,12 +30,13 @@ twig:
     form:
         resources:
             - 'NitraTopsBundle:Form:fields.html.twig'
+            - 'NitraUploadBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [AdmingeneratorGeneratorBundle]
+    bundles:        [ AdmingeneratorGeneratorBundle , NitraUploadBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: 
@@ -104,8 +105,8 @@ admingenerator_generator:
             decimal: 2
             decimal_point: ','
             thousand_separator: ' '
-
             
-
-
-           
+services:
+    upload_handler:
+        class:        Nitra\UploadBundle\UploadHandler
+        arguments:    ["@doctrine.orm.entity_manager", "@router", "@kernel" , true ]
