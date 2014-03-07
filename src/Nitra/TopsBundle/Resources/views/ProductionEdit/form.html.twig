@@ -3,5 +3,6 @@
 {% from "NitraUploadBundle:Form:fields.html.twig" import list_files %}
 {% block form_file %}
     {{ parent() }}
-    {{ list_files(Production.file, 'file') }}
+    {#3 параметр - выводить или нет название файла#}
+    {{ list_files(Production.file, 'file', true ) }}
 {% endblock %}

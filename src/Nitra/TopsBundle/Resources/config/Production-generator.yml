@@ -17,7 +17,7 @@ params:
             addFormOptions:
               mapped:                 false
               multiple:               true
-              base_path:              uploads/
+              base_path:              uploads/documents
               required:               true
     object_actions:
         delete: ~
@@ -41,15 +41,15 @@ builders:
             title: Добавление новго продукта
             display: [art, name, cost, assemblyCost, file ]
             actions:
-                save: ~
-                list: ~
+                save:           ~
+                list:           ~
     edit:
         params:
             title: "Редактирование продукта \"%object%\"|{ %object%: Production.name }|"
             display: [art, name, cost, assemblyCost, file ]
             actions:
-                save: ~
-                list: ~
+                save:           ~
+                list:           ~
     show:
         params:
             title: "You're viewing the object \"%object%\"|{ %object%: production.title }|"

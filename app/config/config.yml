@@ -109,4 +109,4 @@ admingenerator_generator:
 services:
     upload_handler:
         class:        Nitra\UploadBundle\UploadHandler
-        arguments:    ["@doctrine.orm.entity_manager", "@router", "@kernel"]
+        arguments:    ["@doctrine.orm.entity_manager", "@router", "@kernel" , true ]

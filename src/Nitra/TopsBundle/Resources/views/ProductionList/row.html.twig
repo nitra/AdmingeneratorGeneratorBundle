@@ -1,1 +1,11 @@
 {% extends_admingenerated "NitraTopsBundle:ProductionList:row.html.twig" %}
+{#      Переопределен вывод файлов      #}
+{% block list_td_column_file %}
+    {% for object in Production.file %}
+        <p>
+            <a href="{{ object }}" title="Скачать файл">
+                {{ object|split('/')|last }}
+            </a>
+        </p>
+    {% endfor %}
+{% endblock list_td_column_file %}
