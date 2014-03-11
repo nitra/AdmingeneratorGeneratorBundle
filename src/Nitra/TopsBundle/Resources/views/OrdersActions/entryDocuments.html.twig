@@ -1,0 +1,27 @@
+<h1> Документы по позции </h1>
+<fieldset class="form_block form_fieldset_search">
+        <div>
+            <h2>Базовые документы</h2>
+            {% if format|length > 0 %}
+                {% for item in format%}
+                    <p><a href="{{item}}" title="Скачать файл" target="_blank">{{ item|split('/')|last }}</a></p>
+                {% endfor%}
+            {% else %}
+                <p>Нет базовых документов</p>
+            {% endif%}
+            {% if production %}
+                <a href="{{ path("Nitra_TopsBundle_Production_edit", { pk: production.id }) }}">Редактировать файлы</a>  
+            {% endif %}
+        </div>    
+        <div>
+            <h2>Доп. документы</h2>
+            {% if orderEntry.file|length > 0 %}
+                {% for item in orderEntry.file %}
+                    <p><a href="{{item}}" title="Скачать файл" target="_blank">{{ item|split('/')|last }}</a></p>
+                {% endfor%}
+            {% else %}
+                <p>Нет доп. документов</p>
+            {% endif%}
+            <a href="{{ path("Nitra_TopsBundle_OrderEntry_edit", { pk: orderEntry.id }) }}">Редактировать файлы по позиции заказа</a> 
+        </div>
+</fieldset>

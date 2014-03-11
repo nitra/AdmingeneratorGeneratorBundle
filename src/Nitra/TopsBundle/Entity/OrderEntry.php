@@ -104,6 +104,12 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
      */
     protected $color;
 
+    /**     Доп. файлы по позции
+     *
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $file;
+
     /**
      * Get id
      *
@@ -398,4 +404,27 @@ use \Admingenerator\GeneratorBundle\Traits\ValidForDelete;
         return $this->productName;
     }
 
+
+    /**
+     * Set file
+     *
+     * @param array $file
+     * @return OrderEntry
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return array 
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
 }

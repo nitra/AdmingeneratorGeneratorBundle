@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Nitra\TopsBundle\Entity\Income;
+use Nitra\TopsBundle\Entity\OrderEntry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Nitra\TopsBundle\Form\Type\Income\NewType as addIncome;
 
@@ -225,14 +226,14 @@ class ActionsController extends BaseActionsController
                 ->add('repairedComment', 'textarea', array(
             'label' => 'Кометарий'));
 
-        
+
 //        $formData = $this->getRequest()->get('');
-      
+
         $formIsValid = false;
         if ($request->getMethod() == 'POST') {
- 
+
             // заполнить форму 
-           $form =  $formReclamation->getForm()->submit($request);
+            $form = $formReclamation->getForm()->submit($request);
             // валидация формы
             if ($form->isValid()) {
                 try {
@@ -259,6 +260,27 @@ class ActionsController extends BaseActionsController
             "Orders" => $orders,
             "form" => $formReclamation->getForm()->createView(),
             "formIsValid" => $formIsValid,
+        );
+    }
+
+    /**     Документы по позиции
+     * 
+     * @Route("/{pk}-documents", name="Nitra_TopsBundle_Orders_EntryDocuments")
+     * @ParamConverter("orderEntry", class="NitraTopsBundle:OrderEntry", options={"id" = "pk"})
+     * @Template("NitraTopsBundle:OrdersActions:entryDocuments.html.twig")
+     */
+    public function ordersEntryDocuments(OrderEntry $orderEntry, Request $request)
+    {
+        //Стандартные документы по продукции
+        $format = null;
+        $production = $orderEntry->getProduction();
+        if ($production) {
+            $format = $production->getFile();
+        }
+        return array(
+            'format' => $format,
+            'orderEntry' => $orderEntry,
+            'production' => $production
         );
     }
 

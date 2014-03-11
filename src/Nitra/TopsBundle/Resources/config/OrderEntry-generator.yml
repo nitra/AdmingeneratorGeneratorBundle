@@ -1,0 +1,57 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Nitra\TopsBundle\Entity\OrderEntry
+    namespace_prefix: Nitra
+    concurrency_lock: ~
+    bundle_name: TopsBundle
+    pk_requirement: ~
+    fields:
+        file:  
+            label:                    Файлы
+            formType:                 nlupload
+            addFormOptions:
+              mapped:                 false
+              multiple:               true
+              base_path:              uploads/documents/unformat
+              required:               true 
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: List for TopsBundle
+            display: ~
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    filters:
+        params:
+            display: ~
+    new:
+        params:
+            title: New object for TopsBundle
+            display: ~
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "Редактирование файлов для заказа №%object% |{ %object%: OrderEntry.order.id }|"
+            display:  [ file ]
+            actions:
+                save: ~
+    show:
+        params:
+            title: "You're viewing the object"
+            display: ~
+            actions:    []
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~
