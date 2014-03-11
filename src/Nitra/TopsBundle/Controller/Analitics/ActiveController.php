@@ -119,8 +119,8 @@ class ActiveController extends Controller
         /*
          * $incomes все поступления по выбранным условиям
          */
-        foreach ($incomes as $income) {
-            $order = '';
+        $order = '';
+        foreach ($incomes as $income) {        
             if ($income->getOrders()) {
                 $order = ' Заказ №' . $income->getOrders()->getId();
             }

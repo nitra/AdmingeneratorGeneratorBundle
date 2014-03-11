@@ -25,7 +25,8 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
-            new Thrace\FormBundle\ThraceFormBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+            new Pinano\Select2Bundle\PinanoSelect2Bundle(),
             new Nitra\TopsBundle\NitraTopsBundle(),
             new Nitra\UploadBundle\NitraUploadBundle(),
         );

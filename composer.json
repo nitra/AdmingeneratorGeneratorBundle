@@ -30,9 +30,8 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "nitra/admingenerator-generator-bundle": "dev-master",
         "nitra/doctrine-behaviors": "dev-master",
-        "thrace/form-bundle": "1.0.6",
         "liuggio/excelbundle": "1.0.5",
-        "e-commerce-admin/uploadbundle": "*"
+        "e-commerce-admin/uploadbundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
