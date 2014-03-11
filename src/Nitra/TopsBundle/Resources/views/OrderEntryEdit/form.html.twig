@@ -1,0 +1,7 @@
+{% extends_admingenerated "NitraTopsBundle:OrderEntryEdit:form.html.twig" %}
+{% from "NitraUploadBundle:Form:fields.html.twig" import list_files %}
+{% block form_file %}
+    {{ parent() }}
+    {#3 параметр - выводить или нет название файла#}
+    {{ list_files(OrderEntry.file, 'file', true ) }}
+{% endblock %}

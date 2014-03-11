@@ -1,3 +1,8 @@
+NitraTopsBundle_admin_nitra_tops_bundle_OrderEntry:
+    resource: "@NitraTopsBundle/Controller/OrderEntry/"
+    type:     admingenerator
+    prefix:   /admin/nitra_tops_bundle/OrderEntry
+
 nlupload:
     resource: "@NitraUploadBundle/Resources/config/routing.yml"
 
