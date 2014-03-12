@@ -1,8 +1,8 @@
 <?php
 
 namespace Nitra\TopsBundle\Form\Type;
-
-use Admingenerator\GeneratorBundle\Form\Type\AjaxAutocompleteType as AjaxAutocomplete;
+use Symfony\Component\Form\AbstractType;
+//use Admingenerator\GeneratorBundle\Form\Type\AjaxAutocompleteType as AjaxAutocomplete;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -60,19 +60,19 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  *
  */
-class AjaxAutocompleteType extends AjaxAutocomplete
+class AjaxAutocompleteType extends AbstractType
 {
 
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function buildForm(FormBuilderInterface $builder, array $options)
-//    {
-//        $builder
-//                ->add('name', 'text')
-//                ->add('id', 'hidden');
-//    }
-//
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+                ->add('name', 'text')
+                ->add('id', 'hidden');
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -89,26 +89,26 @@ class AjaxAutocompleteType extends AjaxAutocomplete
 
     }
     
-//
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function setDefaultOptions(OptionsResolverInterface $resolver)
-//    {
-//        $resolver->setDefaults(array(
-//            'autocompleteActionRouting' => '',    // Роутинг на контроллер, который будет отдавать данные для списка
-//            'afterItemSelectJavascript' => '',   // Дополнительные Javascript действия после выбора из списка
-//            'extraParamsString' => '',            // Дополнительные Get-параметры отсылаемые в Controller
-//            'minChars' => 2,                        // Минимальная длина запроса для срабатывания автозаполнения
-//            'deferRequestBy' => 10,                 // Задержка запроса (мсек), на случай, если мы не хотим слать миллион запросов, пока пользователь печатает.
-//            'maxHeight' => 400,                     // Максимальная высота списка подсказок, в пикселях
-//            'width' => 300                          // Ширина списка
-//        ));
-//    }
-//
-//    public function getName()
-//    {
-//        return 'ajax_autocomplete';
-//    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'autocompleteActionRouting' => '',    // Роутинг на контроллер, который будет отдавать данные для списка
+            'afterItemSelectJavascript' => '',   // Дополнительные Javascript действия после выбора из списка
+            'extraParamsString' => '',            // Дополнительные Get-параметры отсылаемые в Controller
+            'minChars' => 2,                        // Минимальная длина запроса для срабатывания автозаполнения
+            'deferRequestBy' => 10,                 // Задержка запроса (мсек), на случай, если мы не хотим слать миллион запросов, пока пользователь печатает.
+            'maxHeight' => 400,                     // Максимальная высота списка подсказок, в пикселях
+            'width' => 300                          // Ширина списка
+        ));
+    }
+
+    public function getName()
+    {
+        return 'ajax_autocomplete';
+    }
 
 }
