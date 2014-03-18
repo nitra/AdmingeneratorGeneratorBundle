@@ -148,7 +148,8 @@
     {% javascripts '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery.autocomplete.js' %}
             <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-
+            
+{% block ajax_autocomplete_js %}
     {% spaceless %}
 
         <script type="text/javascript">
@@ -197,6 +198,6 @@ $Строка_отображения_во_время_набора_с_клави�
                                     });
        })();
         </script>
-
     {% endspaceless %}
+{% endblock ajax_autocomplete_js %}        
 {% endblock ajax_autocomplete_widget %}
