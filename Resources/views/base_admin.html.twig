@@ -13,7 +13,7 @@
             {% endstylesheets %}
             
             {# Для select2 #}
-            {% if form is defined %}
+            {% if form is defined and form != false %}
                 {{ form_stylesheet(form) }}
             {% endif %}
             
@@ -49,7 +49,7 @@
             {% endif %}
             
             {# Для select2 #}
-            {% if form is defined %}
+            {% if form is defined and form != false %}
                 {{ form_javascript(form) }}    
             {% endif %}
                     
